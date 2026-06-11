@@ -1,0 +1,23 @@
+# Core LangChain + LangGraph (unpinned patch versions to avoid conflicts)
+langgraph>=0.2.28
+langchain>=0.3.7
+langchain-core>=0.3.17
+langchain-huggingface
+langchain-chroma
+langchain-community>=0.3.7
+langchain-groq>=0.2.1
+
+# Vector Store
+chromadb>=0.5.18
+
+# PDF Loading
+pypdf>=5.1.0
+
+# Embeddings
+sentence-transformers>=3.3.1
+
+# UI
+streamlit>=1.40.1
+
+# Env management
+python-dotenv>=1.0.1
