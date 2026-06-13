@@ -99,7 +99,8 @@ def build_ipl_graph():
     graph.add_edge("h2h",     "venue")
     graph.add_edge("venue",   "form")
     graph.add_edge("form",    "batting")
-    graph.add_edge("batting", "bowling")
+    graph.add_edge("batting", "synthesis")
+    graph.add_edge("bowling", "synthesis")
     graph.add_edge("bowling", "synthesis")
 
     # Simple single-node paths → Synthesis

@@ -10,11 +10,46 @@ from graph.graph_builder import build_ipl_graph
 st.set_page_config(
     page_title="IPL Intelligence Assistant",
     page_icon="🏏",
-    layout="centered",
+    layout="wide",
 )
 
+st.markdown("""
+<style>
+.main {
+    background-color: #f8fafc;
+}
+
+.stTextInput > div > div > input {
+    border-radius: 15px;
+}
+
+.answer-box {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #eef6ff;
+    border-left: 5px solid #2563eb;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🏏 IPL Intelligence Assistant")
-st.caption("Powered by LangGraph · Groq (Llama 3) · ChromaDB · RAG")
+st.markdown("""
+### 🧠 Multi-Agent IPL Analysis System
+
+Batting • Bowling • Venue • H2H • Form • Records • Validation
+""")
+st.info(
+"LangGraph → Retrieval → Specialized Agents → Llama 3 → Validation"
+)
+col1,col2,col3 = st.columns(3)
+
+col1.metric("Agents", "8")
+col2.metric("LLM", "Llama 3")
+col3.metric("Vector DB", "ChromaDB")
+st.caption("Powered by LangGraph • Groq (Llama 3) • ChromaDB • RAG")
+st.success("✅ Multi-Agent LangGraph Workflow Active")
+
+
 
 # ── Load graph (cached so it runs only once) ─────────────────────────────────
 @st.cache_resource(show_spinner=False)
@@ -47,7 +82,7 @@ def empty_state(query: str) -> dict:
 
 # ── Sidebar: sample queries ───────────────────────────────────────────────────
 with st.sidebar:
-    st.header("💡 Try these queries")
+    st.sidebar.markdown("## 🚀 Quick IPL Queries")
     sample_queries = [
         "Who captains Chennai Super Kings in 2024?",
         "What is Virat Kohli's career IPL run tally?",
@@ -69,6 +104,15 @@ with st.sidebar:
         "Each query is routed to specialised nodes (Batting, Bowling, Venue, H2H, Form) "
         "before being synthesised by an LLM."
     )
+    st.markdown("""
+<div style="
+padding:15px;
+border-radius:12px;
+background:#f8fafc;
+border:1px solid #e5e7eb;">
+<h4>Ask Anything About IPL</h4>
+</div>
+""", unsafe_allow_html=True)
 
 # ── Main input ────────────────────────────────────────────────────────────────
 default_q = st.session_state.get("selected_query", "")
@@ -83,9 +127,21 @@ if query:
         result = graph.invoke(empty_state(query))
 
     # ── Answer ────────────────────────────────────────────────────────────────
-    st.markdown("### 📋 Answer")
-    st.write(result["final_answer"])
-
+    st.markdown("## 🏏 AI Cricket Analyst")
+    st.success("Query processed successfully")
+    st.markdown(
+f"""
+<div style="
+padding:20px;
+border-radius:12px;
+background:#eef6ff;
+border-left:6px solid #2563eb;
+font-size:18px;">
+{result["final_answer"]}
+</div>
+""",
+unsafe_allow_html=True
+)
     # ── Graph trace ───────────────────────────────────────────────────────────
     st.divider()
     col1, col2 = st.columns(2)

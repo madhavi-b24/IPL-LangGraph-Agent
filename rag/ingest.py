@@ -36,10 +36,27 @@ def ingest_pdf(pdf_path: str):
     print(f"Loading PDF: {pdf_path}")
     loader = PyPDFLoader(pdf_path)
     pages = loader.load()
+    filtered_pages = []
+
+    for page in pages:
+        text = page.page_content.lower()
+
+        if "direct stat lookup" in text:
+            continue
+
+        if "exact record retrieval" in text:
+            continue
+
+        if "evaluation" in text:
+            continue
+
+        filtered_pages.append(page)
+
+    pages = filtered_pages
     print(f"Loaded {len(pages)} pages.")
 
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=300,
+        chunk_size=500,
         chunk_overlap=50,
         separators=["\n\n", "\n", ".", " "]
     )
@@ -72,3 +89,5 @@ def load_vectorstore():
         persist_directory=CHROMA_DIR,
         embedding_function=embeddings
     )
+if __name__ == "__main__":
+    ingest_pdf("data/IPL_LangGraph_RAG_Dataset.pdf")
