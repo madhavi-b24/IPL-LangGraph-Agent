@@ -1,4 +1,5 @@
-🏏 IPL Intelligence Assistant
+
+# 🏏 IPL Intelligence Assistant
 A Multi-Agent Retrieval-Augmented Generation (RAG) system built with LangGraph, Groq Llama 3, ChromaDB, and Streamlit that answers IPL cricket queries using specialized AI agents.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat&logo=python)
@@ -10,7 +11,7 @@ A Multi-Agent Retrieval-Augmented Generation (RAG) system built with LangGraph, 
 
 ---
 
-📖 Table of Contents
+## 📖 Table of Contents
 
 - Overview
 - Features
@@ -27,8 +28,7 @@ A Multi-Agent Retrieval-Augmented Generation (RAG) system built with LangGraph, 
 - License
 
 ---
-
-📌 Overview
+## 📌 Overview
 
 IPL Intelligence Assistant is a Multi-Agent RAG application designed to answer IPL-related cricket questions using LangGraph.
 
@@ -47,44 +47,41 @@ The system retrieves relevant IPL information from a custom IPL dataset stored i
 
 ---
 
-✨ Features
+## 🎯 Project Goal
 
-Multi-Agent Architecture
+The goal of this project is to demonstrate how LangGraph can be used to build a Multi-Agent RAG system capable of handling different IPL-related queries through specialized retrieval agents.
+
+Instead of using a single retriever for all questions, the system dynamically routes queries to domain-specific nodes such as batting, bowling, venue, form, head-to-head, and records.
+---
+
+## ✨ Features
+### Multi-Agent Architecture
 
 - Query routing using LangGraph
 - Specialized cricket knowledge agents
 - Dynamic workflow execution
 
-Retrieval-Augmented Generation
+### Retrieval-Augmented Generation
 
-- ChromaDB vector store
+- ChromaDB vector database
 - HuggingFace embeddings
 - Context-aware retrieval
 
-Validation Layer
+### Validation Layer
 
-- Detects conflicting information
-- Improves answer reliability
-- Adds trust to generated responses
+- Conflict detection
+- Answer verification
+- Reliability improvements
 
-Interactive UI
+### Interactive UI
 
 - Streamlit-based interface
 - Query trace visualization
-- Context chunk inspection
-
-Explainable Workflow
-
-Displays:
-
-- Query type detected
-- Entities extracted
-- Nodes activated
-- Retrieved context chunks
+- Retrieved context inspection
 
 ---
 
-💡 Why This Project?
+## 💡 Why This Project?
 
 Traditional RAG systems follow:
 
@@ -115,7 +112,7 @@ LangGraph enables these tasks by routing information through multiple specialize
 ---
 ## 🏗️ System Architecture
 
- mermaid
+``` mermaid
 flowchart TD
 
     A[User Query] --> B[RouterNode]
@@ -138,10 +135,18 @@ flowchart TD
 
     J --> K[ValidationNode]
     K --> L[Final Answer]
+```
+---
+### Workflow
 
+1. RouterNode classifies the incoming query.
+2. Relevant domain nodes retrieve context from ChromaDB.
+3. SynthesisNode combines retrieved information.
+4. ValidationNode checks for inconsistencies.
+5. Final answer is returned to the user.
 ---
 
-🔄 Query Routing Examples
+# 🔄 Query Routing Examples
 
 Team Query
 
@@ -197,7 +202,7 @@ RouterNode
 
 ---
 
-🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 | Layer | Tool | Reason |
 |---|---|---|
@@ -212,7 +217,7 @@ RouterNode
 
 ---
 
-📂 Project Structure
+# 📂 Project Structure
 
 ipl-langgraph-agent/
 ├── .env                        # API keys — never commit this
@@ -240,7 +245,7 @@ ipl-langgraph-agent/
 
 ---
 
-⚙️ Installation
+# ⚙️ Installation
 1. Clone Repository
 
 git clone https://github.com/madhavi-b24/IPL-LangGraph-Agent.git
@@ -294,7 +299,7 @@ http://localhost:8501
 
 ---
 
-🚀 Usage
+# 🚀 Usage
 
 Example Queries
 
@@ -312,7 +317,7 @@ Who will win MI vs CSK?
 
 ---
 
-💬 Sample Queries
+# 💬 Sample Queries
 
 | Difficulty | Query |
 |------------|-------|
@@ -327,8 +332,16 @@ Who will win MI vs CSK?
 | Hard | What bowling strategy should SRH use against CSK? |
 | Expert | Detect conflicting IPL statistics in the dataset |
 ---
+## 🏆 Key Achievements
 
-🧩 Challenges Solved
+- Built a Multi-Agent RAG system using LangGraph
+- Implemented metadata-based retrieval
+- Added conflict detection using ValidationNode
+- Created a Streamlit interface for interaction
+- Developed dynamic query routing across multiple IPL domains
+- Built a complete end-to-end AI application from ingestion to answer generation
+---
+# 🧩 Challenges Solved
 
 Multi-Agent Routing
 
@@ -364,19 +377,18 @@ Users can inspect:
 
 ---
 
-🔮 Future Improvements
+# 🔮 Future Improvements
 
-- Live IPL API integration
-- Real-time match predictions
-- Advanced Dream11 recommendations
-- Player-vs-player analysis
-- Better entity extraction
 - Hybrid Search (BM25 + Vector Search)
-- Deployment on Streamlit Cloud / Hugging Face Spaces
+- Query Expansion and Rewriting
+- Cross-Encoder Reranking
+- Live IPL Data Integration
+- Real-Time Match Prediction
+- Advanced Fantasy Team Recommendations
 
 ---
 
-📄 License
+# 📄 License
 
 This project is licensed under the MIT License.
 
