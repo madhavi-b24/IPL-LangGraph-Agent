@@ -1,13 +1,13 @@
-🏏 IPL Intelligence Assistant
+#🏏 IPL Intelligence Assistant
 
 «A Multi-Agent Retrieval-Augmented Generation (RAG) system built with LangGraph, Groq Llama 3, ChromaDB, and Streamlit that answers IPL cricket queries using specialized AI agents.»
 
-"Python" (https://img.shields.io/badge/Python-3.10+-blue?style=flat&logo=python)
-"LangGraph" (https://img.shields.io/badge/LangGraph-MultiAgent-green?style=flat)
-"Groq" (https://img.shields.io/badge/LLM-Groq%20Llama%203-orange?style=flat)
-"ChromaDB" (https://img.shields.io/badge/VectorDB-ChromaDB-purple?style=flat)
-"Streamlit" (https://img.shields.io/badge/UI-Streamlit-red?style=flat)
-"License" (https://img.shields.io/badge/License-MIT-yellow?style=flat)
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat&logo=python)
+![LangGraph](https://img.shields.io/badge/LangGraph-0.2+-green?style=flat)
+![Groq](https://img.shields.io/badge/LLM-Groq%20Llama%203.1-orange?style=flat)
+![ChromaDB](https://img.shields.io/badge/VectorDB-ChromaDB-purple?style=flat)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-red?style=flat)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat)
 
 ---
 
@@ -29,7 +29,7 @@
 
 ---
 
-📌 Overview
+##📌 Overview
 
 IPL Intelligence Assistant is a Multi-Agent RAG application designed to answer IPL-related cricket questions using LangGraph.
 
@@ -48,7 +48,7 @@ The system retrieves relevant IPL information from a custom IPL dataset stored i
 
 ---
 
-✨ Features
+##✨ Features
 
 Multi-Agent Architecture
 
@@ -85,7 +85,7 @@ Displays:
 
 ---
 
-💡 Why This Project?
+##💡 Why This Project?
 
 Traditional RAG systems follow:
 
@@ -115,8 +115,8 @@ LangGraph enables these tasks by routing information through multiple specialize
 
 ---
 
-🏗 System Architecture
-
+##🏗 System Architecture
+```
 flowchart TD
 
     A[User Query] --> B[RouterNode]
@@ -143,11 +143,11 @@ flowchart TD
     style B fill:#f9f,stroke:#333,stroke-width:2px
     style J fill:#bbf,stroke:#333,stroke-width:2px
     style K fill:#bfb,stroke:#333,stroke-width:2px
-
+```
 ---
 
-🔄 Query Routing Examples
-
+##🔄 Query Routing Examples
+```
 Team Query
 
 Who captains Chennai Super Kings in 2024?
@@ -199,55 +199,54 @@ RouterNode
 → BowlingStatsNode
 → SynthesisNode
 → ValidationNode
+```
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Tool | Reason |
+|---|---|---|
+| Agent Orchestration | LangGraph 0.2+ | Stateful multi-agent graph |
+| LLM | Groq — Llama 3.1 8B Instant | Fast, free inference |
+| Vector Store | ChromaDB | Local persistent embeddings |
+| Embeddings | HuggingFace all-MiniLM-L6-v2 | Lightweight, accurate |
+| PDF Loading | PyPDF + LangChain | Structured document ingestion |
+| UI | Streamlit | Rapid interactive interface |
+| Language | Python 3.10+ | |
+
 
 ---
 
-🛠 Tech Stack
-
-Layer| Technology
-Language| Python 3.10+
-Agent Framework| LangGraph
-LLM| Groq Llama 3
-Vector Database| ChromaDB
-Embeddings| all-MiniLM-L6-v2
-RAG Framework| LangChain
-UI| Streamlit
-PDF Processing| PyPDFLoader
-Environment Management| python-dotenv
-
----
-
-📂 Project Structure
-
-IPL-LangGraph-Agent/
-│
-├── app.py
-├── main.py
+##📂 Project Structure
+```
+ipl-langgraph-agent/
+├── .env                        # API keys — never commit this
+├── .env.example                # Safe template for reviewers
+├── .gitignore
 ├── requirements.txt
-├── .env
-│
+├── setup_venv.sh               # One-command environment setup
+├── main.py                     # Terminal test runner
+├── app.py                      # Streamlit UI
 ├── data/
 │   └── IPL_LangGraph_RAG_Dataset.pdf
-│
 ├── graph/
-│   ├── graphbuilder.py
-│   ├── nodes.py
-│   ├── team_node.py
-│   ├── validation.py
-│   └── state.py
-│
-├── rag/
-│   ├── ingest.py
-│   └── retriever.py
-│
-├── chroma_db/
+│   ├── __init__.py
+│   ├── state.py                # IPLAgentState TypedDict
+│   ├── nodes.py                # All core agent nodes
+│   ├── team_node.py            # TeamProfileNode
+│   ├── validation.py           # ValidationNode
+│   └── graph_builder.py        # Full graph wiring
+└── rag/
+    ├── __init__.py
+    ├── ingest.py               # PDF → chunks → ChromaDB
+    └── retriever.py            # Metadata-filtered retrieval
 │
 └── README.md
-
+```
 ---
 
-⚙️ Installation
-
+##⚙️ Installation
+```
 1. Clone Repository
 
 git clone https://github.com/madhavi-b24/IPL-LangGraph-Agent.git
@@ -269,7 +268,7 @@ Linux / Mac
 python3 -m venv venv
 
 source venv/bin/activate
-
+```
 ---
 
 3. Install Dependencies
@@ -302,8 +301,8 @@ http://localhost:8501
 
 ---
 
-🚀 Usage
-
+##🚀 Usage
+```
 Example Queries
 
 Who captains Chennai Super Kings in 2024?
@@ -317,11 +316,11 @@ List bowlers with economy below 7.0
 Suggest a Dream11 XI for MI vs SRH
 
 Who will win MI vs CSK?
-
+```
 ---
 
-💬 Sample Queries
-
+##💬 Sample Queries
+```
 Difficulty| Query
 Easy| Who captains Chennai Super Kings in 2024?
 Easy| What is Virat Kohli's IPL run tally?
@@ -333,11 +332,11 @@ Hard| Suggest a Dream11 XI for MI vs SRH at Wankhede
 Hard| Who will win MI vs CSK?
 Hard| What bowling strategy should SRH use against CSK?
 Expert| Detect conflicting IPL statistics in the dataset
-
+```
 ---
 
-🧩 Challenges Solved
-
+##🧩 Challenges Solved
+```
 Multi-Agent Routing
 
 Implemented query classification and dynamic node activation using LangGraph.
@@ -369,11 +368,11 @@ Users can inspect:
 - Activated nodes
 - Retrieved chunks
 - Validation results
-
+```
 ---
 
-🔮 Future Improvements
-
+##🔮 Future Improvements
+```
 - Live IPL API integration
 - Real-time match predictions
 - Advanced Dream11 recommendations
@@ -381,11 +380,12 @@ Users can inspect:
 - Better entity extraction
 - Hybrid Search (BM25 + Vector Search)
 - Deployment on Streamlit Cloud / Hugging Face Spaces
-
+```
 ---
 
-📄 License
-
+##📄 License
+```
 This project is licensed under the MIT License.
 
 Feel free to use, modify, and distribute this project with proper attribution.
+```
