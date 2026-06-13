@@ -1,6 +1,5 @@
-#🏏 IPL Intelligence Assistant
-
-«A Multi-Agent Retrieval-Augmented Generation (RAG) system built with LangGraph, Groq Llama 3, ChromaDB, and Streamlit that answers IPL cricket queries using specialized AI agents.»
+🏏 IPL Intelligence Assistant
+A Multi-Agent Retrieval-Augmented Generation (RAG) system built with LangGraph, Groq Llama 3, ChromaDB, and Streamlit that answers IPL cricket queries using specialized AI agents.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=flat&logo=python)
 ![LangGraph](https://img.shields.io/badge/LangGraph-0.2+-green?style=flat)
@@ -29,7 +28,7 @@
 
 ---
 
-##📌 Overview
+📌 Overview
 
 IPL Intelligence Assistant is a Multi-Agent RAG application designed to answer IPL-related cricket questions using LangGraph.
 
@@ -48,7 +47,7 @@ The system retrieves relevant IPL information from a custom IPL dataset stored i
 
 ---
 
-##✨ Features
+✨ Features
 
 Multi-Agent Architecture
 
@@ -85,7 +84,7 @@ Displays:
 
 ---
 
-##💡 Why This Project?
+💡 Why This Project?
 
 Traditional RAG systems follow:
 
@@ -114,9 +113,9 @@ requires:
 LangGraph enables these tasks by routing information through multiple specialized agents and combining their outputs before generating a final answer.
 
 ---
+## 🏗️ System Architecture
 
-##🏗 System Architecture
-```
+```mermaid
 flowchart TD
 
     A[User Query] --> B[RouterNode]
@@ -139,14 +138,10 @@ flowchart TD
 
     J --> K[ValidationNode]
     K --> L[Final Answer]
-
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style J fill:#bbf,stroke:#333,stroke-width:2px
-    style K fill:#bfb,stroke:#333,stroke-width:2px
 ```
 ---
 
-##🔄 Query Routing Examples
+🔄 Query Routing Examples
 ```
 Team Query
 
@@ -202,7 +197,7 @@ RouterNode
 ```
 ---
 
-## 🛠️ Tech Stack
+🛠️ Tech Stack
 
 | Layer | Tool | Reason |
 |---|---|---|
@@ -217,7 +212,7 @@ RouterNode
 
 ---
 
-##📂 Project Structure
+📂 Project Structure
 ```
 ipl-langgraph-agent/
 ├── .env                        # API keys — never commit this
@@ -245,7 +240,7 @@ ipl-langgraph-agent/
 ```
 ---
 
-##⚙️ Installation
+⚙️ Installation
 ```
 1. Clone Repository
 
@@ -301,7 +296,7 @@ http://localhost:8501
 
 ---
 
-##🚀 Usage
+🚀 Usage
 ```
 Example Queries
 
@@ -319,7 +314,7 @@ Who will win MI vs CSK?
 ```
 ---
 
-##💬 Sample Queries
+💬 Sample Queries
 ```
 Difficulty| Query
 Easy| Who captains Chennai Super Kings in 2024?
@@ -335,7 +330,7 @@ Expert| Detect conflicting IPL statistics in the dataset
 ```
 ---
 
-##🧩 Challenges Solved
+🧩 Challenges Solved
 ```
 Multi-Agent Routing
 
@@ -371,7 +366,7 @@ Users can inspect:
 ```
 ---
 
-##🔮 Future Improvements
+🔮 Future Improvements
 ```
 - Live IPL API integration
 - Real-time match predictions
@@ -383,7 +378,7 @@ Users can inspect:
 ```
 ---
 
-##📄 License
+📄 License
 ```
 This project is licensed under the MIT License.
 
