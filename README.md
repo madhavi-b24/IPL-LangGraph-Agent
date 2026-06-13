@@ -216,10 +216,10 @@ RouterNode
 
 
 ---
+## 📁 Project Structure
 
-# 📂 Project Structure
-
-ipl-langgraph-agent/
+```
+ipl-langgraph-rag/
 ├── .env                        # API keys — never commit this
 ├── .env.example                # Safe template for reviewers
 ├── .gitignore
@@ -240,62 +240,77 @@ ipl-langgraph-agent/
     ├── __init__.py
     ├── ingest.py               # PDF → chunks → ChromaDB
     └── retriever.py            # Metadata-filtered retrieval
-│
-└── README.md
+```
 
 ---
 
-# ⚙️ Installation
-1. Clone Repository
-
-git clone https://github.com/madhavi-b24/IPL-LangGraph-Agent.git
-
-cd IPL-LangGraph-Agent
-
----
-
-2. Create Virtual Environment
-
-Windows
-
-python -m venv venv
-
-venv\Scripts\activate
-
-Linux / Mac
-
-python3 -m venv venv
-
-source venv/bin/activate
----
 
 3. Install Dependencies
 
 pip install -r requirements.txt
 
 ---
+## ⚙️ Installation and Setup
 
-4. Configure Environment Variables
+### Prerequisites
 
-Create a ".env" file:
+- Python 3.10 or higher
+- A free Groq API key from [console.groq.com](https://console.groq.com)
 
-GROQ_API_KEY=your_groq_api_key
+### Step 1 — Clone the repository
 
----
+```bash
+git clone https://github.com/YOUR_USERNAME/ipl-langgraph-rag.git
+cd ipl-langgraph-rag
+```
 
-5. Build ChromaDB
+### Step 2 — Create virtual environment
 
-python rag/ingest.py
+```bash
+bash setup_venv.sh
+```
 
----
+This creates `venv/` and installs all packages from `requirements.txt` automatically.
 
-6. Run Application
+**Activate manually in future sessions:**
 
+```bash
+# Mac / Linux
+source venv/bin/activate
+
+# Windows
+venv\Scripts\activate
+```
+
+### Step 3 — Set your API key
+
+Copy `.env.example` to `.env` and add your Groq key:
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and replace the placeholder:
+
+```
+GROQ_API_KEY=your_actual_key_here
+```
+
+### Step 4 — Add the dataset
+
+Place `IPL_LangGraph_RAG_Dataset.pdf` inside the `data/` folder.
+
+### Step 5 — Run
+
+```bash
+# Terminal test — builds vector store on first run (~2 minutes)
+python main.py
+
+# Streamlit UI
 streamlit run app.py
+```
 
-Application will launch at:
-
-http://localhost:8501
+The first run downloads the embedding model and builds the ChromaDB vector store. Subsequent runs are instant.
 
 ---
 
