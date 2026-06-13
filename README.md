@@ -115,7 +115,7 @@ LangGraph enables these tasks by routing information through multiple specialize
 ---
 ## 🏗️ System Architecture
 
-```mermaid
+ mermaid
 flowchart TD
 
     A[User Query] --> B[RouterNode]
@@ -138,11 +138,11 @@ flowchart TD
 
     J --> K[ValidationNode]
     K --> L[Final Answer]
-```
+
 ---
 
 🔄 Query Routing Examples
-```
+
 Team Query
 
 Who captains Chennai Super Kings in 2024?
@@ -194,7 +194,7 @@ RouterNode
 → BowlingStatsNode
 → SynthesisNode
 → ValidationNode
-```
+
 ---
 
 🛠️ Tech Stack
@@ -213,7 +213,7 @@ RouterNode
 ---
 
 📂 Project Structure
-```
+
 ipl-langgraph-agent/
 ├── .env                        # API keys — never commit this
 ├── .env.example                # Safe template for reviewers
@@ -237,11 +237,10 @@ ipl-langgraph-agent/
     └── retriever.py            # Metadata-filtered retrieval
 │
 └── README.md
-```
+
 ---
 
 ⚙️ Installation
-```
 1. Clone Repository
 
 git clone https://github.com/madhavi-b24/IPL-LangGraph-Agent.git
@@ -263,7 +262,6 @@ Linux / Mac
 python3 -m venv venv
 
 source venv/bin/activate
-```
 ---
 
 3. Install Dependencies
@@ -297,7 +295,7 @@ http://localhost:8501
 ---
 
 🚀 Usage
-```
+
 Example Queries
 
 Who captains Chennai Super Kings in 2024?
@@ -311,27 +309,27 @@ List bowlers with economy below 7.0
 Suggest a Dream11 XI for MI vs SRH
 
 Who will win MI vs CSK?
-```
+
 ---
 
 💬 Sample Queries
-```
-Difficulty| Query
-Easy| Who captains Chennai Super Kings in 2024?
-Easy| What is Virat Kohli's IPL run tally?
-Easy| What is the highest team total in IPL history?
-Medium| Which opener has the highest strike rate?
-Medium| List bowlers with economy below 7.0
-Medium| How many times have MI and CSK played each other?
-Hard| Suggest a Dream11 XI for MI vs SRH at Wankhede
-Hard| Who will win MI vs CSK?
-Hard| What bowling strategy should SRH use against CSK?
-Expert| Detect conflicting IPL statistics in the dataset
-```
+
+| Difficulty | Query |
+|------------|-------|
+| Easy | Who captains Chennai Super Kings in 2024? |
+| Easy | What is Virat Kohli's IPL run tally? |
+| Easy | What is the highest team total in IPL history? |
+| Medium | Which opener has the highest strike rate? |
+| Medium | List bowlers with economy below 7.0 |
+| Medium | How many times have MI and CSK played each other? |
+| Hard | Suggest a Dream11 XI for MI vs SRH at Wankhede |
+| Hard | Who will win MI vs CSK? |
+| Hard | What bowling strategy should SRH use against CSK? |
+| Expert | Detect conflicting IPL statistics in the dataset |
 ---
 
 🧩 Challenges Solved
-```
+
 Multi-Agent Routing
 
 Implemented query classification and dynamic node activation using LangGraph.
@@ -363,11 +361,11 @@ Users can inspect:
 - Activated nodes
 - Retrieved chunks
 - Validation results
-```
+
 ---
 
 🔮 Future Improvements
-```
+
 - Live IPL API integration
 - Real-time match predictions
 - Advanced Dream11 recommendations
@@ -375,12 +373,11 @@ Users can inspect:
 - Better entity extraction
 - Hybrid Search (BM25 + Vector Search)
 - Deployment on Streamlit Cloud / Hugging Face Spaces
-```
+
 ---
 
 📄 License
-```
+
 This project is licensed under the MIT License.
 
 Feel free to use, modify, and distribute this project with proper attribution.
-```
