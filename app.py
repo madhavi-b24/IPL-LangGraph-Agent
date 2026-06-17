@@ -108,8 +108,8 @@ def build_memory_prompt(query: str) -> str:
     if not memory:
         return query
     context_block = "\n".join(
-        f"User: {m['query']}\nAssistant: {m['answer']}"
-        for m in memory[-3:]
+        f"User: {m['query']}\nAssistant: {m['answer'][:200]}"
+        for m in memory[-1:]
     )
     return (
         f"Previous conversation:\n{context_block}\n\n"
@@ -119,6 +119,7 @@ def build_memory_prompt(query: str) -> str:
 def empty_state(query: str) -> dict:
     return {
         "user_query": query,
+        "rewritten_query": "",
         "query_type": "",
         "entities": [],
         "batting_context": [],
@@ -277,6 +278,6 @@ if query:
 
     # ── Update conversational memory (keep last 3 turns) ──────────────────────
     st.session_state.memory_context.append(entry)
-    st.session_state.memory_context = st.session_state.memory_context[-3:]
+    st.session_state.memory_context = st.session_state.memory_context[-1:]
 
     st.rerun()

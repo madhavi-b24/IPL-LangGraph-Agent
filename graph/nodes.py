@@ -1,62 +1,146 @@
 import os
+import re
 from langchain_groq import ChatGroq
 from graph.state import IPLAgentState
-from rag.retriever import retrieve
+from rag.retriever import detect_entities, expand_query, flatten_entities, retrieve
 
-# ── LLM (shared across all nodes) ──────────────────────────────────────────
-llm = ChatGroq(
-    model="llama-3.1-8b-instant",
-    api_key=os.getenv("GROQ_API_KEY"),
-    temperature=0.2,
-)
+_llm = None
+_rewriter_llm = None
+
+
+def _get_llm():
+    """Lazily instantiate the LLM client to avoid requiring API keys at import time."""
+    global _llm
+    if _llm is None:
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            _llm = None
+        else:
+            _llm = ChatGroq(model="llama-3.1-8b-instant", api_key=api_key, temperature=0.1)
+    return _llm
+
+
+def _get_rewriter_llm():
+    global _rewriter_llm
+    if _rewriter_llm is None:
+        api_key = os.getenv("GROQ_API_KEY")
+        if not api_key:
+            _rewriter_llm = None
+        else:
+            _rewriter_llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
+    return _rewriter_llm
+
+def rewrite_query_node(state: IPLAgentState) -> IPLAgentState:
+    """Rewrites user query for improved semantic retrieval.
+    
+    Expands abbreviations, disambiguates intent, normalizes language.
+    Stores rewritten query in state["rewritten_query"].
+    Falls back to original query if rewriting fails.
+    """
+    original_query = state["user_query"]
+    
+    try:
+        rewriter = _get_rewriter_llm()
+        if rewriter is None:
+            # No API key or LLM unavailable — skip rewriting
+            rewritten = original_query
+        else:
+            prompt = f"""You are an IPL query rewriting assistant.
+
+Rewrite the query for semantic retrieval. Preserve the original meaning.
+
+Rules:
+- Expand cricket abbreviations (e.g., SR → strike rate, econ → economy rate).
+- Expand team abbreviations to full names (e.g., MI → Mumbai Indians).
+- Add context keywords relevant to IPL.
+- Rephrase unclear or vague phrasing.
+- Keep the core intent unchanged.
+- Return ONLY the rewritten query, no explanation.
+
+Original Query: {original_query}
+
+Rewritten Query:"""
+
+            response = rewriter.invoke(prompt)
+            rewritten = getattr(response, 'content', '') or str(response)
+            rewritten = rewritten.strip()
+
+            # Fallback if response is empty
+            if not rewritten or len(rewritten) < 3:
+                rewritten = original_query
+    except Exception as e:
+        print(f"Query rewriting failed: {e}. Using original query.")
+        rewritten = original_query
+    
+    activated = state.get("nodes_activated", [])
+    activated.append("RewriteNode")
+    
+    return {
+        **state,
+        "rewritten_query": rewritten,
+        "nodes_activated": activated,
+    }
+
+
+def _has_any(text: str, phrases: list[str]) -> bool:
+    return any(phrase in text for phrase in phrases)
 
 
 # ── NODE 1: RouterNode ──────────────────────────────────────────────────────
 def router_node(state: IPLAgentState) -> IPLAgentState:
     """Classifies query type and extracts team/player entity names."""
-    query = state["user_query"].lower()
+    # Prefer rewritten query for routing when available
+    raw_query = state.get("rewritten_query", state["user_query"])
+    query = expand_query(raw_query).lower()
+    detected_entities = detect_entities(raw_query)
+    entities = flatten_entities(detected_entities)
 
-    # Entity extraction
-    teams = ["mi", "csk", "rcb", "kkr", "dc", "srh", "rr", "pbks", "lsg", "gt"]
-    players = [
-        "kohli", "rohit", "bumrah", "dhoni", "buttler", "head",
-        "rashid", "gaikwad", "samson", "rahul", "pandya", "narine",
-        "chahal", "gill", "pant", "klaasen", "sharma", "warner"
-    ]
-    entities = []
-    for t in teams:
-        if t in query:
-            entities.append(t.upper())
-    for p in players:
-        if p in query:
-            entities.append(p.capitalize())
+    team_count = len(detected_entities.get("teams", []))
+    has_matchup = bool(
+        team_count >= 2
+        or _has_any(query, [" vs ", " versus ", " v "])
+        or re.search(r"\b[a-z]{2,4}\s+vs\s+[a-z]{2,4}\b", query)
+    )
 
-    # Query type routing
-    if any(w in query for w in ["dream11", "fantasy", "captain pick", "xi", "team pick"]):
+    dream11_terms = ["dream11", "fantasy", "captain pick", "vice captain", "xi", "team pick"]
+    prediction_terms = ["predict", "who will win", "likely to win", "winner", "win probability", "favoured", "favored"]
+    h2h_terms = ["head-to-head", "h2h", "played each other", "matchup", "against each other"]
+    venue_terms = ["venue", "pitch", "stadium", "ground", "dew", "chinnaswamy", "wankhede", "chepauk", "eden gardens"]
+    form_terms = ["form", "last 5", "recent", "this season", "current form", "trend"]
+    bowling_terms = ["bowl", "bowler", "bowlers", "bowling", "wicket", "wickets", "wkts", "economy", "econ", "spell", "figures"]
+    batting_terms = ["bat", "batter", "batters", "batsman", "runs", "run tally", "average", "strike rate", "sr", "century", "fifty", "opener"]
+    records_terms = ["record", "records", "highest", "most", "fastest", "best figures", "milestone", "highest team total", "highest chase"]
+    team_terms = ["captain", "coach", "home venue", "squad", "title", "titles", "team profile", "tell me about"]
+    season_terms = ["season-wise", "2019", "2020", "2021", "2022", "2023", "2024", "consistent"]
+
+    if _has_any(query, dream11_terms):
         query_type = "dream11"
-    elif any(w in query for w in ["predict", "win", "who will", "likely to win", "winner"]):
+    elif has_matchup and _has_any(query, prediction_terms):
         query_type = "prediction"
-    elif any(w in query for w in ["record", "highest", "most", "fastest", "best figures", "milestone"]):
-        query_type = "records"
-    elif any(w in query for w in ["venue", "pitch", "stadium", "ground", "dew", "strategy at"]):
-        query_type = "venue"
-    elif any(w in query for w in ["form", "last 5", "recent", "this season", "current form"]):
-        query_type = "form"
-    elif any(w in query for w in ["bowl", "wicket", "economy", "spell", "figures"]):
-        query_type = "bowling"
-    elif any(w in query for w in ["bat", "run", "average", "century", "strike rate", "opener", "score"]):
-        query_type = "batting"
-    elif any(w in query for w in ["vs", "head-to-head", "h2h", "played each other", "between"]):
+    elif has_matchup and (_has_any(query, h2h_terms) or " vs " in query or " between " in query):
         query_type = "h2h"
-    elif any(w in query for w in ["season", "2019", "2020", "2021", "2022", "2023", "2024", "consistent"]):
+    elif _has_any(query, bowling_terms):
+        query_type = "bowling"
+    elif _has_any(query, batting_terms):
+        query_type = "batting"
+    elif _has_any(query, venue_terms):
+        query_type = "venue"
+    elif _has_any(query, form_terms):
+        query_type = "form"
+    elif _has_any(query, records_terms):
+        query_type = "records"
+    elif _has_any(query, team_terms):
+        query_type = "team"
+    elif _has_any(query, season_terms):
         query_type = "season"
-    elif any(w in query for w in ["team", "captain", "coach", "title", "squad"]):
+    elif "team" in query:
         query_type = "team"
     else:
         query_type = "records"  # default fallback
 
     activated = state.get("nodes_activated", [])
     activated.append("RouterNode")
+    print(f"[RouterNode] routing query='{raw_query}' expanded='{query}' type_guess='{query_type}' entities={detected_entities}")
 
     return {
         **state,
@@ -68,7 +152,8 @@ def router_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 2: BattingStatsNode ────────────────────────────────────────────────
 def batting_stats_node(state: IPLAgentState) -> IPLAgentState:
-    docs = retrieve(state["user_query"], section="batting")
+    query = state.get("rewritten_query", state["user_query"])
+    docs = retrieve(query, section="batting")
     activated = state.get("nodes_activated", [])
     activated.append("BattingStatsNode")
     return {**state, "batting_context": docs, "nodes_activated": activated}
@@ -76,7 +161,8 @@ def batting_stats_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 3: BowlingStatsNode ────────────────────────────────────────────────
 def bowling_stats_node(state: IPLAgentState) -> IPLAgentState:
-    docs = retrieve(state["user_query"], section="bowling")
+    query = state.get("rewritten_query", state["user_query"])
+    docs = retrieve(query, section="bowling")
     activated = state.get("nodes_activated", [])
     activated.append("BowlingStatsNode")
     return {**state, "bowling_context": docs, "nodes_activated": activated}
@@ -84,7 +170,8 @@ def bowling_stats_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 4: VenueNode ───────────────────────────────────────────────────────
 def venue_node(state: IPLAgentState) -> IPLAgentState:
-    docs = retrieve(state["user_query"], section="venue")
+    query = state.get("rewritten_query", state["user_query"])
+    docs = retrieve(query, section="venue")
     activated = state.get("nodes_activated", [])
     activated.append("VenueNode")
     return {**state, "venue_context": docs, "nodes_activated": activated}
@@ -92,7 +179,8 @@ def venue_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 5: H2HNode ─────────────────────────────────────────────────────────
 def h2h_node(state: IPLAgentState) -> IPLAgentState:
-    docs = retrieve(state["user_query"], section="h2h")
+    query = state.get("rewritten_query", state["user_query"])
+    docs = retrieve(query, section="h2h")
     activated = state.get("nodes_activated", [])
     activated.append("H2HNode")
     return {**state, "h2h_context": docs, "nodes_activated": activated}
@@ -100,7 +188,8 @@ def h2h_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 6: FormNode ────────────────────────────────────────────────────────
 def form_node(state: IPLAgentState) -> IPLAgentState:
-    docs = retrieve(state["user_query"], section="form")
+    query = state.get("rewritten_query", state["user_query"])
+    docs = retrieve(query, section="form")
     activated = state.get("nodes_activated", [])
     activated.append("FormNode")
     return {**state, "form_context": docs, "nodes_activated": activated}
@@ -108,7 +197,8 @@ def form_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 7: RecordsNode ─────────────────────────────────────────────────────
 def records_node(state: IPLAgentState) -> IPLAgentState:
-    docs = retrieve(state["user_query"], section="records")
+    query = state.get("rewritten_query", state["user_query"])
+    docs = retrieve(query, section="records")
     activated = state.get("nodes_activated", [])
     activated.append("RecordsNode")
     return {**state, "retrieved_chunks": docs, "nodes_activated": activated}
@@ -117,7 +207,7 @@ def records_node(state: IPLAgentState) -> IPLAgentState:
 # ── NODE 8: SynthesisNode ───────────────────────────────────────────────────
 def synthesis_node(state: IPLAgentState) -> IPLAgentState:
     """Combines all retrieved context and calls LLM for final answer."""
-    all_docs = (
+    combined_docs = (
         state.get("batting_context", [])
         + state.get("bowling_context", [])
         + state.get("h2h_context", [])
@@ -125,29 +215,60 @@ def synthesis_node(state: IPLAgentState) -> IPLAgentState:
         + state.get("form_context", [])
         + state.get("retrieved_chunks", [])
     )
+    all_docs = []
+    seen = set()
+    for doc in combined_docs:
+        key = (
+            doc.metadata.get("source", "IPL Dataset"),
+            doc.metadata.get("page", ""),
+            doc.page_content[:160],
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        all_docs.append(doc)
 
     activated = state.get("nodes_activated", [])
     activated.append("SynthesisNode")
 
+    validation_notes = state.get("synthesised_context", "").strip()
+
     if not all_docs:
         return {
             **state,
-            "final_answer": (
-                "I don't have enough information in my dataset to answer this. "
-                "This might be out of scope or not covered in the IPL dataset."
-            ),
+            "final_answer": "Information not available in dataset.",
             "sources": [],
             "nodes_activated": activated,
         }
 
-    context_text = "\n\n".join(d.page_content for d in all_docs[:10])  # cap at 10 chunks
-    sources = list(set(
+    context_blocks = []
+    for idx, doc in enumerate(all_docs[:8], start=1):
+        metadata = doc.metadata or {}
+        section = metadata.get("section", "unknown")
+        page = metadata.get("page", "n/a")
+        context_blocks.append(
+            f"[Chunk {idx} | section={section} | page={page}]\n{doc.page_content}"
+        )
+    context_text = "\n\n".join(context_blocks)
+    sources = sorted(set(
         d.metadata.get("source", "IPL Dataset") for d in all_docs
     ))
 
     prompt = f"""You are an expert IPL cricket analyst assistant.
-Use ONLY the context below to answer the query. Be specific and cite numbers where available.
-If the answer is not in the context, clearly say: "This information is not available in my dataset."
+Use ONLY the retrieved context below to answer the query.
+
+Rules:
+- Do not use outside IPL knowledge.
+- Do not guess, infer unsupported facts, or fill missing values.
+- If the required information is missing, answer exactly: "Information not available in dataset."
+- If validation notes say rows were filtered, answer only from those validated rows.
+- If the query has a numeric condition, every listed result must satisfy it and include the supporting value.
+- For prediction questions, do not declare a winner unless the context explicitly supports the conclusion. If evidence is partial, state only the supported factors.
+- Do not combine a winner claim with "Information not available in dataset."
+- Prefer a compact table or bullets for lists and comparisons.
+
+Validation notes:
+{validation_notes or "None"}
 
 --- CONTEXT START ---
 {context_text}
@@ -155,7 +276,22 @@ If the answer is not in the context, clearly say: "This information is not avail
 
 Query: {state["user_query"]}
 
-Answer (be concise and factual):"""
+Answer:"""
+
+    llm = _get_llm()
+    if llm is None:
+        # No LLM available (no GROQ_API_KEY). Return a safe fallback summarising retrieved context.
+        summary = []
+        for idx, doc in enumerate(all_docs[:6], start=1):
+            preview = " ".join(doc.page_content.split())[:240]
+            summary.append(f"[Chunk {idx}] section={doc.metadata.get('section','n/a')} source={doc.metadata.get('source','IPL Dataset')} preview={preview}")
+        fallback = "\n\n".join(summary) or "Information not available in dataset."
+        return {
+            **state,
+            "final_answer": fallback,
+            "sources": sources,
+            "nodes_activated": activated,
+        }
 
     response = llm.invoke(prompt)
 

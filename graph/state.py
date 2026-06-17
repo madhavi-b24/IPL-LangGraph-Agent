@@ -5,6 +5,7 @@ from langchain_core.documents import Document
 class IPLAgentState(TypedDict):
     # Input
     user_query: str
+    rewritten_query:str
     query_type: str                  # 'batting'|'bowling'|'h2h'|'venue'|'form'|'records'|'prediction'|'dream11'
     entities: List[str]              # extracted player/team names
 

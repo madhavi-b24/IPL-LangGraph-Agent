@@ -14,14 +14,16 @@ def team_profile_node(state: IPLAgentState) -> IPLAgentState:
     Retrieves team profile data.
     Tagged section: 'team' in ChromaDB.
     """
-    docs = retrieve(state["user_query"], section="team", k=4)
-
-    # Also pull season data for richer context on trend queries
-    season_docs = retrieve(state["user_query"], section="season", k=3)
-    all_docs = docs + season_docs
+    # Use rewritten query for retrieval when available
+    query = state.get("rewritten_query", state["user_query"])
+    if state.get("query_type") == "season":
+        all_docs = retrieve(query, section="season", k=4)
+    else:
+        all_docs = retrieve(query, section="team", k=6)
 
     activated = state.get("nodes_activated", [])
     activated.append("TeamProfileNode")
+    print(f"[TeamProfileNode] query='{query}' retrieved={len(all_docs)} docs")
 
     # Store in retrieved_chunks so SynthesisNode picks it up
     return {

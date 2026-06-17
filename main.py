@@ -19,6 +19,7 @@ graph = build_ipl_graph()
 def empty_state(query: str) -> dict:
     return {
         "user_query": query,
+        "rewritten_query": "",
         "query_type": "",
         "entities": [],
         "batting_context": [],

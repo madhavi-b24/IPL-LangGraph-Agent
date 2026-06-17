@@ -1,12 +1,42 @@
 [
   {
-    "query": "Suggest a Dream11 XI for MI vs SRH at Wankhede tonight.",
-    "answer": "Based on the given context, the suggested Dream11 XI for MI vs SRH at Wankhede tonight is:\n\n1. C - Travis Head\n2. VC - Jasprit Bumrah\n3. XI: Head, Abhishek Sharma, Kohli, Buttler, Samson, Klaasen, Bumrah, Klaasen, Bumrah's economy is best at death, and pace bowlers are key at death in Wankhede.",
-    "time_taken": 7.58
+    "query": "Who captains Chennai Super Kings in 2024?",
+    "answer": "Ruturaj Gaikwad captains Chennai Super Kings in 2024.",
+    "time_taken": 1.08
+  },
+  {
+    "query": "List all bowlers with an economy rate below 7.0.",
+    "answer": "Based on the provided context, the list of bowlers with an economy rate below 7.0 is:\n\n- Sunil Narine (Econ: 6.69)\n- Rashid Khan (Econ: 6.68)\n- Harbhajan Singh (Econ: 6.97)",
+    "time_taken": 1.42
+  },
+  {
+    "query": "CSK is playing RCB at Chinnaswamy. Who will win?",
+    "answer": "Information not available in dataset.",
+    "time_taken": 2.1
   },
   {
     "query": "What bowling strategy should SRH use at MA Chidambaram against CSK?",
-    "answer": "Based on the given context, the bowling strategy that SRH should use at MA Chidambaram against CSK is to bowl first, as the venue is a batting-friendly one with a high average of 185. Additionally, the dew makes chasing easier in the 2nd innings.",
-    "time_taken": 0.88
+    "answer": "Based on the provided context, the bowling strategy for SRH at MA Chidambaram against CSK should be to use spinners, as the Chennai pitch is described as the most spin-friendly in the IPL. The key skill here is playing spin under pressure, which CSK has historically struggled with.\n\nSpecifically, SRH should consider using leg-spinners and off-spinners, as they become virtually unplayable in the second innings on this surface.",
+    "time_taken": 1.45
+  },
+  {
+    "query": "Suggest a Dream11 XI for MI vs SRH at Wankhede tonight.",
+    "answer": "Based on the provided context, here's a suggested Dream11 XI for MI vs SRH at Wankhede tonight:\n\n**Batters:**\n1. Rohit Sharma (MI) - Opener\n2. Suryakumar Yadav (MI) - Middle-order\n3. Ishan Kishan (MI) - Middle-order\n4. Abhishek Sharma (SRH) - Opener\n5. Travis Head (SRH) - Opener\n\n**All-rounders:**\n1. Hardik Pandya (MI) - All-rounder\n2. Rashid Khan (GT) - All-rounder (available for SRH)\n\n**Bowlers:**\n1. Jasprit Bumrah (MI) - Fast bowler\n2. Rashid Khan (GT) - Spinner\n3. Bhuvneshwar Kumar (SRH) - Fast bowler (available for SRH)\n\n**Wicket-keeper:**\n1. Ishan Kishan (MI) - WK-Bat\n\nThis XI is based on the players' recent form and strengths, considering the context provided. However, please note that this is just a suggested team and not an actual prediction.",
+    "time_taken": 2.18
+  },
+  {
+    "query": "Which opener has the highest strike rate?",
+    "answer": "To find the opener with the highest strike rate, we need to filter the data by Role='Opener' and then sort by SR (Strike Rate).\n\nHere are the openers from the provided context:\n\n- Shubman Gill (GT) - Opener\n- Ruturaj Gaikwad (CSK) - Opener\n- Sanju Samson (RR) - Opener\n- KL Rahul (LSG) - Opener/WK\n- Shreyas Iyer (KKR) - Middle-order (not an opener)\n- Jos Buttler (RR) - Opener/WK\n- Faf du Plessis (RCB) - Opener\n- Travis Head (SRH) - Opener\n- Abhishek Sharma (SRH) - Opener\n- MS Dhoni (CSK) - WK-Finisher (not an opener)\n- Rohit Sharma (MI) - Opener\n- David Warner (DC) - Opener\n- Quinton de Kock (LSG) - Opener/WK\n- Heinrich Klaasen (SRH) - Opener/WK\n\nFiltered list of openers:\n- Shubman Gill (GT)\n- Ruturaj Gaikwad (CSK)\n- Sanju Samson (RR)\n- KL Rahul (LSG)\n- Jos Buttler (RR)\n- Faf du Plessis (RCB)\n- Travis Head (SRH)\n- Abhishek Sharma (SRH)\n- Rohit Sharma (MI)\n- David Warner (DC)\n- Quinton de Kock (LSG)\n- Heinrich Klaasen (SRH)\n\nSorted by SR (Strike Rate):\n- Travis Head (SRH) - 191.6\n- Abhishek Sharma (SRH) - 188.3\n- Jos Buttler (RR) - 149.2\n- David Warner (DC) - 139.9\n- Faf du Plessis (RCB) - 134.2\n- KL Rahul (LSG) - 134.3\n- Ruturaj Gaikwad (CSK) - 136.8\n- Shubman Gill (GT) - 148.7\n- Quinton de Kock (LSG) - 138.9\n- Heinrich Klaasen (SRH) - 162.8\n- Rohit Sharma (MI) - 130.5\n- Sanju Samson (RR) - 140.5\n\nThe opener with the highest strike rate is:\n- Travis Head (SRH) - 191.6",
+    "time_taken": 14.87
+  },
+  {
+    "query": "who captains CSK in 2024",
+    "answer": "Ruturaj Gaikwad captains CSK in 2024.",
+    "time_taken": 1.27
+  },
+  {
+    "query": "Highest strike rate opener",
+    "answer": "To find the highest strike rate opener, we need to filter the data by Role='Opener' and then sort by SR (Strike Rate).\n\nHere are the results:\n\n| Player | Team | SR |\n| --- | --- | --- |\n| Travis Head | SRH | 191.6 |\n| Abhishek Sharma | SRH | 188.3 |\n| Shubman Gill | GT | 148.7 |\n| Ruturaj Gaikwad | CSK | 136.8 |\n| Sanju Samson | RR | 140.5 |\n| KL Rahul | LSG | 134.3 |\n| Jos Buttler | RR | 149.2 |\n\nThe top 3 highest strike rate openers are:\n- Travis Head (SRH) with a strike rate of 191.6\n- Abhishek Sharma (SRH) with a strike rate of 188.3\n- Shubman Gill (GT) with a strike rate of 148.7",
+    "time_taken": 3.03
   }
 ]

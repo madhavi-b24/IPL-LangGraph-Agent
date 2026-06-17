@@ -1,6 +1,7 @@
 from langgraph.graph import StateGraph, END
 from graph.state import IPLAgentState
 from graph.nodes import (
+    rewrite_query_node,
     router_node,
     batting_stats_node,
     bowling_stats_node,
@@ -48,11 +49,15 @@ def route_query(state: IPLAgentState) -> str:
 
 def build_ipl_graph():
     """
-    Full IPL LangGraph topology:
+    Full IPL LangGraph topology with Query Rewriting:
 
-    ┌─────────────────────────────────────────────────────────────────┐
-    │                         RouterNode                               │
-    └──┬──────┬──────┬──────┬──────┬──────┬──────┬────────────────────┘
+    ┌──────────────────────────────────────────────────────────────┐
+    │                      RewriteNode                              │
+    └─────────────────────────┬──────────────────────────────────────┘
+                              │
+    ┌─────────────────────────▼──────────────────────────────────────┐
+    │                         RouterNode                              │
+    └──┬──────┬──────┬──────┬──────┬──────┬──────┬───────────────────┘
        │      │      │      │      │      │      │
      team  batting bowling venue  h2h   form  records
        │      │      │      │      │      │      │
@@ -60,11 +65,12 @@ def build_ipl_graph():
        │      │      │           │
        │      └──────┴───────────┘
        │                         │
-       └──────────────→ synthesis → validation → END
+       └──────────────→ validation → synthesis → END
     """
     graph = StateGraph(IPLAgentState)
 
     # ── Register all nodes ────────────────────────────────────────────
+    graph.add_node("rewrite",    rewrite_query_node)
     graph.add_node("router",     router_node)
     graph.add_node("team",       team_profile_node)
     graph.add_node("batting",    batting_stats_node)
@@ -77,7 +83,10 @@ def build_ipl_graph():
     graph.add_node("validation", validation_node)
 
     # ── Entry point ───────────────────────────────────────────────────
-    graph.set_entry_point("router")
+    graph.set_entry_point("rewrite")
+
+    # ── Rewrite → Router edge ─────────────────────────────────────────
+    graph.add_edge("rewrite", "router")
 
     # ── Conditional routing from RouterNode ───────────────────────────
     graph.add_conditional_edges(
@@ -99,16 +108,15 @@ def build_ipl_graph():
     graph.add_edge("h2h",     "venue")
     graph.add_edge("venue",   "form")
     graph.add_edge("form",    "batting")
-    graph.add_edge("batting", "synthesis")
-    graph.add_edge("bowling", "synthesis")
-    graph.add_edge("bowling", "synthesis")
+    graph.add_edge("batting", "validation")
+    graph.add_edge("bowling", "validation")
 
     # Simple single-node paths → Synthesis
-    graph.add_edge("team",    "synthesis")
-    graph.add_edge("records", "synthesis")
+    graph.add_edge("team",    "validation")
+    graph.add_edge("records", "validation")
 
     # ── Synthesis → Validation → END ─────────────────────────────────
-    graph.add_edge("synthesis",  "validation")
-    graph.add_edge("validation", END)
+    graph.add_edge("validation", "synthesis")
+    graph.add_edge("synthesis", END)
 
     return graph.compile()
