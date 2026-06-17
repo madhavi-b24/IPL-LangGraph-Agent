@@ -38,5 +38,45 @@
     "query": "Highest strike rate opener",
     "answer": "To find the highest strike rate opener, we need to filter the data by Role='Opener' and then sort by SR (Strike Rate).\n\nHere are the results:\n\n| Player | Team | SR |\n| --- | --- | --- |\n| Travis Head | SRH | 191.6 |\n| Abhishek Sharma | SRH | 188.3 |\n| Shubman Gill | GT | 148.7 |\n| Ruturaj Gaikwad | CSK | 136.8 |\n| Sanju Samson | RR | 140.5 |\n| KL Rahul | LSG | 134.3 |\n| Jos Buttler | RR | 149.2 |\n\nThe top 3 highest strike rate openers are:\n- Travis Head (SRH) with a strike rate of 191.6\n- Abhishek Sharma (SRH) with a strike rate of 188.3\n- Shubman Gill (GT) with a strike rate of 148.7",
     "time_taken": 3.03
+  },
+  {
+    "query": "MI vs CSK head to head",
+    "answer": "To answer the new question, I will refer to the provided context.\n\nMI vs CSK head-to-head results:\n\n| Matchup | Total Matches | Team 1 Wins | Team 2 Wins | Tied/NR | Last 5 (\u2192 winner) | High Score | Key Factor |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| MI vs CSK | 35 | 20 | 14 | 1 | MI,CSK,MI,CSK,MI | 235/1 (MI) | Bumrah vs Dhoni |\n\nNote that the context mentions a conflict for the number of matches between MI vs CSK, with 35 from one source and 33 from another. However, the provided data shows 35 matches.",
+    "time_taken": 14.61
+  },
+  {
+    "query": "How many times have MI and CSK played each other",
+    "answer": "Information not available in dataset.",
+    "time_taken": 5.9
+  },
+  {
+    "query": "list bowlers with economy below 7",
+    "answer": "Information not available in dataset.",
+    "time_taken": 2.26
+  },
+  {
+    "query": "csk captain",
+    "answer": "Ruturaj Gaikwad is the captain of CSK.",
+    "time_taken": 1.47
+  },
+  {
+    "query": "CSK vs RCB at Chinnaswamy",
+    "answer": "To answer the query, we need to consider the team strategies and strengths of CSK and RCB, as well as the characteristics of the Chinnaswamy venue.\n\nFrom Chunk 5, we know that CSK's strategy is to anchor the innings, use spinners in middle overs, and finish with big hitters. They rely on spinners on slow pitches, which suggests that they might struggle on the flat pitch at Chinnaswamy.\n\nOn the other hand, RCB's strategy is to post 180+ totals and defend with pace. They rely heavily on Kohli and du Plessis for big scores, which suggests that they have a strong batting lineup.\n\nFrom Chunk 7, we know that Chinnaswamy is a batter-friendly ground with short boundaries and a flat pitch. This suggests that both teams will have an advantage in batting.\n\nConsidering these factors, here are some possible outcomes:\n\n* CSK might struggle to contain RCB's batting lineup, especially if Kohli and du Plessis get going.\n* RCB might be able to post a big total, which could put pressure on CSK's batting lineup.\n* CSK's spinners might not be as effective on the flat pitch at Chinnaswamy, which could give RCB an advantage.\n\nHowever, it's worth noting that CSK has a strong team with experienced players like Dhoni, and they have a good record in the IPL. RCB, on the other hand, has a strong batting lineup, but their bowling lineup has been inconsistent in the past.\n\nTherefore, the outcome of the match is uncertain, and it's difficult to predict a clear winner.",
+    "time_taken": 4.71
+  },
+  {
+    "query": "How many times have MI and CSK played each other?",
+    "answer": "From Chunk 7 and Chunk 8, we can see that the head-to-head matchup between MI and CSK is mentioned twice. \n\n- In Chunk 7, it is mentioned that MI vs CSK has a total of 35 matches.\n- In Chunk 8, it is also mentioned that MI vs CSK has a total of 28 matches.\n\nHowever, in Chunk 5, it is mentioned that there is a conflict between the primary and secondary sources regarding the total number of matches between MI and CSK, with the primary source stating 35 matches and the secondary source stating 33 matches.\n\nSince the conflict is not resolved, we cannot provide a single answer. However, based on the information available, we can say that the total number of matches between MI and CSK is either 35 or 33.",
+    "time_taken": 18.05
+  },
+  {
+    "query": "CSK is playing RCB at Chinnaswamy. Who will win?",
+    "answer": "Information not available in dataset.",
+    "time_taken": 2.45
+  },
+  {
+    "query": "Suggest a Dream11 XI for MI vs SRH at Wankhede tonight.",
+    "answer": "To suggest a Dream11 XI for MI vs SRH at Wankhede tonight, we need to consider the recent form of players and the head-to-head records between the two teams.\n\n**Recent Form:**\n\n- Travis Head (SRH) - Excellent form with an average of 59.0 in the last 5 matches.\n- Jasprit Bumrah (MI) - Excellent form with 2.4 wkts/gam.\n- Rohit Sharma (MI) - Average form with an average of 32.6 in the last 5 matches.\n- Jos Buttler (RR) - Mixed form with an average of 46.6 in the last 5 matches.\n\n**Head-to-Head Records:**\n\n- MI vs SRH - Total Matches: 28, MI wins: 16, SRH wins: 12, Tied/NR: 0.\n\n**Dream11 XI Suggestion:**\n\nBased on the recent form and head-to-head records, here's a suggested Dream11 XI for MI vs SRH at Wankhede tonight:\n\n1. Captain - Travis Head (SRH)\n2. Vice-Captain - Jasprit Bumrah (MI)\n3. Batters - Rohit Sharma (MI), Jos Buttler (RR), Abhishek Sharma (SRH)\n4. All-Rounders - Hardik Pandya (MI), Suryakumar Yadav (MI)\n5. Bowlers - Jasprit Bumrah (MI), Rashid Khan (GT), TBA (SRH)\n\nNote: The fifth bowler can be chosen based on the current team selection and the pitch conditions at Wankhede.",
+    "time_taken": 5.68
   }
 ]

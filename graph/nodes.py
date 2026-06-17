@@ -72,6 +72,7 @@ Rewritten Query:"""
         print(f"Query rewriting failed: {e}. Using original query.")
         rewritten = original_query
     
+    print(f"[RewriteQueryNode] original_query={original_query!r} rewritten_query={rewritten!r}")
     activated = state.get("nodes_activated", [])
     activated.append("RewriteNode")
     
@@ -82,6 +83,14 @@ Rewritten Query:"""
     }
 
 
+def _resolve_retrieval_query(state: IPLAgentState) -> str:
+    original_query = state["user_query"]
+    rewritten_query = state.get("rewritten_query") or original_query
+    final_query = rewritten_query
+    print(f"[RetrievalQuery] original_query={original_query!r} rewritten_query={rewritten_query!r} final_query={final_query!r}")
+    return final_query
+
+
 def _has_any(text: str, phrases: list[str]) -> bool:
     return any(phrase in text for phrase in phrases)
 
@@ -90,7 +99,7 @@ def _has_any(text: str, phrases: list[str]) -> bool:
 def router_node(state: IPLAgentState) -> IPLAgentState:
     """Classifies query type and extracts team/player entity names."""
     # Prefer rewritten query for routing when available
-    raw_query = state.get("rewritten_query", state["user_query"])
+    raw_query = state.get("rewritten_query") or state["user_query"]
     query = expand_query(raw_query).lower()
     detected_entities = detect_entities(raw_query)
     entities = flatten_entities(detected_entities)
@@ -152,7 +161,7 @@ def router_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 2: BattingStatsNode ────────────────────────────────────────────────
 def batting_stats_node(state: IPLAgentState) -> IPLAgentState:
-    query = state.get("rewritten_query", state["user_query"])
+    query = _resolve_retrieval_query(state)
     docs = retrieve(query, section="batting")
     activated = state.get("nodes_activated", [])
     activated.append("BattingStatsNode")
@@ -161,7 +170,7 @@ def batting_stats_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 3: BowlingStatsNode ────────────────────────────────────────────────
 def bowling_stats_node(state: IPLAgentState) -> IPLAgentState:
-    query = state.get("rewritten_query", state["user_query"])
+    query = _resolve_retrieval_query(state)
     docs = retrieve(query, section="bowling")
     activated = state.get("nodes_activated", [])
     activated.append("BowlingStatsNode")
@@ -170,7 +179,7 @@ def bowling_stats_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 4: VenueNode ───────────────────────────────────────────────────────
 def venue_node(state: IPLAgentState) -> IPLAgentState:
-    query = state.get("rewritten_query", state["user_query"])
+    query = _resolve_retrieval_query(state)
     docs = retrieve(query, section="venue")
     activated = state.get("nodes_activated", [])
     activated.append("VenueNode")
@@ -179,7 +188,7 @@ def venue_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 5: H2HNode ─────────────────────────────────────────────────────────
 def h2h_node(state: IPLAgentState) -> IPLAgentState:
-    query = state.get("rewritten_query", state["user_query"])
+    query = _resolve_retrieval_query(state)
     docs = retrieve(query, section="h2h")
     activated = state.get("nodes_activated", [])
     activated.append("H2HNode")
@@ -188,7 +197,7 @@ def h2h_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 6: FormNode ────────────────────────────────────────────────────────
 def form_node(state: IPLAgentState) -> IPLAgentState:
-    query = state.get("rewritten_query", state["user_query"])
+    query = _resolve_retrieval_query(state)
     docs = retrieve(query, section="form")
     activated = state.get("nodes_activated", [])
     activated.append("FormNode")
@@ -197,7 +206,7 @@ def form_node(state: IPLAgentState) -> IPLAgentState:
 
 # ── NODE 7: RecordsNode ─────────────────────────────────────────────────────
 def records_node(state: IPLAgentState) -> IPLAgentState:
-    query = state.get("rewritten_query", state["user_query"])
+    query = _resolve_retrieval_query(state)
     docs = retrieve(query, section="records")
     activated = state.get("nodes_activated", [])
     activated.append("RecordsNode")

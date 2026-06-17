@@ -252,12 +252,20 @@ def retrieve(query: str, section: str, k: int = 6, entities: Optional[dict] = No
     fetch_k = max(k * 3, 12)
 
     print("\n========== RETRIEVAL ==========")
-    print("Query:", query)
+    print("Original Query:", query)
     print("Expanded Query:", expanded_query)
+    print("Final Retrieval Query:", expanded_query)
     print("Detected Entity:", detected_entities)
     print("Metadata Filter:", metadata_filter)
 
     vs = get_vectorstore()
+    try:
+        docs = hybrid_search(expanded_query, section, k)
+        return docs
+    except Exception as exc:
+        print("[HYBRID SEARCH] failed, falling back to original vector retrieval. Error:", exc)
+
+    # Fallback: original vector-only retrieval (keeps previous behavior)
     candidates = []
 
     filtered_results = _search_with_scores(
@@ -298,3 +306,114 @@ def retrieve(query: str, section: str, k: int = 6, entities: Optional[dict] = No
 
     print("==============================\n")
     return docs
+
+
+def hybrid_search(query: str, section: str, k: int = 6):
+    """Combine vector similarity with lightweight keyword retrieval and return top-k docs.
+
+    This is a non-breaking addition: errors fall back to the original vector-only retrieval.
+    """
+    print("\n[HYBRID SEARCH]")
+    print("Original Query:", query)
+
+    vs = get_vectorstore()
+    fetch_k = max(k * 3, 24)
+
+    # Step 1: vector retrieval (metadata-filtered + section-compatible fallback)
+    metadata_filter = {"section": section}
+    filtered_results = _search_with_scores(vs, query, k=fetch_k, metadata_filter=metadata_filter)
+    print("Vector Results:", len(filtered_results))
+
+    # Ensure a broader pool for keyword scoring
+    broad_results = _search_with_scores(vs, query, k=fetch_k * 3)
+
+    # Build pools
+    vector_pool = [(doc, distance) for doc, distance in filtered_results]
+    vector_keys = { _doc_key(doc) for doc, _ in vector_pool }
+
+    broad_pool = [(doc, distance) for doc, distance in broad_results]
+
+    # Step 2: Keyword scoring over broad_pool
+    query_terms = _query_terms(query)
+
+    keyword_scores = {}
+    for doc, distance in broad_pool:
+        key = _doc_key(doc)
+        text = (doc.page_content or "").lower()
+        metadata = doc.metadata or {}
+        metadata_text = " ".join(str(metadata.get(field, "")).lower() for field in ["section", "tags", "teams", "players", "venues"])
+        searchable = f"{text} {metadata_text}"
+        matched_terms = sum(1 for term in query_terms if term in searchable)
+        # small boost if detected entities appear in metadata/text
+        entity_bonus = 0
+        keyword_score = 0.0
+        if matched_terms:
+            keyword_score = matched_terms / max(len(query_terms), 1)
+        if metadata.get("section") == section:
+            entity_bonus += 0.08
+        # cap keyword influence
+        keyword_scores[key] = min(keyword_score + entity_bonus, 1.0)
+
+    print("Keyword Results:", len(keyword_scores))
+
+    # Step 3: combine vector ranking scores with keyword scores
+    detected_entities = detect_entities(query)
+    combined = {}
+
+    # Precompute vector-ranked scores for pool docs
+    candidates = []
+    # include vector_pool and some broad_pool docs
+    candidates.extend((doc, distance, "vector") for doc, distance in vector_pool)
+    # include broad candidates that match the section
+    for doc, distance in broad_pool:
+        if _section_matches(doc, section):
+            candidates.append((doc, distance, "broad"))
+
+    ranked_vector = _rank_candidates(candidates, section, detected_entities, query)
+    vector_score_map = { _doc_key(doc): score for doc, _, _, score in ranked_vector }
+
+    # Merge keys
+    all_keys = set(list(vector_score_map.keys()) + list(keyword_scores.keys()))
+
+    merged_list = []
+    for key in all_keys:
+        # find a representative doc for the key
+        rep_doc = None
+        rep_distance = None
+        # search in ranked_vector for doc
+        for doc, dist, src, score in ranked_vector:
+            if _doc_key(doc) == key:
+                rep_doc = doc
+                rep_distance = dist
+                break
+        if rep_doc is None:
+            # fallback: find in broad_pool
+            for doc, dist in broad_pool:
+                if _doc_key(doc) == key:
+                    rep_doc = doc
+                    rep_distance = dist
+                    break
+        if rep_doc is None:
+            continue
+
+        vscore = vector_score_map.get(key, 0.0)
+        kscore = keyword_scores.get(key, 0.0)
+        # keyword boost scaled similar to existing scoring increments
+        keyword_boost = min(kscore * 0.6, 0.6)
+        combined_score = vscore + keyword_boost
+
+        merged_list.append((rep_doc, rep_distance, combined_score))
+
+    # Step 4: deduplicate already ensured by key mapping; sort and take top-k
+    merged_list.sort(key=lambda t: t[2], reverse=True)
+
+    print("Merged Results:")
+    for idx, (doc, dist, score) in enumerate(merged_list[:k], start=1):
+        meta = doc.metadata or {}
+        dist_label = f"{dist:.4f}" if isinstance(dist, (int, float)) else "n/a"
+        print(f"{idx}. section={meta.get('section')} page={meta.get('page')} distance={dist_label} combined_score={score:.4f}")
+
+    # return top-k doc objects
+    top_docs = [doc for doc, _, _ in merged_list[:k]]
+    print("[HYBRID SEARCH] returning", len(top_docs), "docs\n")
+    return top_docs

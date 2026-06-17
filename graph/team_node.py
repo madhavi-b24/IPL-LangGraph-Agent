@@ -7,6 +7,7 @@ to BattingStatsNode or BowlingStatsNode automatically.
 
 from graph.state import IPLAgentState
 from rag.retriever import retrieve
+from graph.nodes import _resolve_retrieval_query
 
 
 def team_profile_node(state: IPLAgentState) -> IPLAgentState:
@@ -14,8 +15,7 @@ def team_profile_node(state: IPLAgentState) -> IPLAgentState:
     Retrieves team profile data.
     Tagged section: 'team' in ChromaDB.
     """
-    # Use rewritten query for retrieval when available
-    query = state.get("rewritten_query", state["user_query"])
+    query = _resolve_retrieval_query(state)
     if state.get("query_type") == "season":
         all_docs = retrieve(query, section="season", k=4)
     else:
