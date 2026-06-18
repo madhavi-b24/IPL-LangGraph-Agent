@@ -11,6 +11,8 @@ class IPLAgentState(TypedDict):
     selected_tool: str
     tool_confidence: float
     query_confidence: float
+    selected_agent: str
+    agent_confidence: float
 
     # Retrieved context per node
     batting_context: List[Document]

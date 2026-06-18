@@ -17,6 +17,15 @@ from graph.team_node import team_profile_node
 from graph.validation import validation_node
 from verification.answer_verifier import answer_verifier_node
 from evaluation.prediction_confidence import prediction_confidence_node
+from agents import (
+    supervisor_node,
+    team_agent_node,
+    player_agent_node,
+    venue_agent_node,
+    h2h_agent_node,
+    dream11_agent_node,
+    prediction_agent_node,
+)
 
 
 def route_query(state: IPLAgentState) -> str:
@@ -51,6 +60,19 @@ def route_query(state: IPLAgentState) -> str:
     return routing_map.get(qt, "records")
 
 
+def route_supervisor(state: IPLAgentState) -> str:
+    selected_agent = state.get("selected_agent", "")
+    routing_map = {
+        "TeamAgent": "team_agent",
+        "PlayerAgent": "player_agent",
+        "VenueAgent": "venue_agent",
+        "H2HAgent": "h2h_agent",
+        "Dream11Agent": "dream11_agent",
+        "PredictionAgent": "prediction_agent",
+    }
+    return routing_map.get(selected_agent, "rewrite")
+
+
 def build_ipl_graph():
     """
     Full IPL LangGraph topology with Query Rewriting:
@@ -75,6 +97,13 @@ def build_ipl_graph():
 
     # ── Register all nodes ────────────────────────────────────────────
     graph.add_node("rewrite",    rewrite_query_node)
+    graph.add_node("supervisor", supervisor_node)
+    graph.add_node("team_agent", team_agent_node)
+    graph.add_node("player_agent", player_agent_node)
+    graph.add_node("venue_agent", venue_agent_node)
+    graph.add_node("h2h_agent", h2h_agent_node)
+    graph.add_node("dream11_agent", dream11_agent_node)
+    graph.add_node("prediction_agent", prediction_agent_node)
     graph.add_node("router",     router_node)
     graph.add_node("team",       team_profile_node)
     graph.add_node("batting",    batting_stats_node)
@@ -92,7 +121,26 @@ def build_ipl_graph():
 
     # ── QueryClassifier → Rewrite → Router edge ───────────────────────
     graph.add_node("query_classifier", classify_query_node)
-    graph.add_edge("query_classifier", "rewrite")
+    graph.add_edge("query_classifier", "supervisor")
+    graph.add_conditional_edges(
+        "supervisor",
+        route_supervisor,
+        {
+            "team_agent": "team_agent",
+            "player_agent": "player_agent",
+            "venue_agent": "venue_agent",
+            "h2h_agent": "h2h_agent",
+            "dream11_agent": "dream11_agent",
+            "prediction_agent": "prediction_agent",
+            "rewrite": "rewrite",
+        },
+    )
+    graph.add_edge("team_agent", "rewrite")
+    graph.add_edge("player_agent", "rewrite")
+    graph.add_edge("venue_agent", "rewrite")
+    graph.add_edge("h2h_agent", "rewrite")
+    graph.add_edge("dream11_agent", "rewrite")
+    graph.add_edge("prediction_agent", "rewrite")
     graph.add_edge("rewrite", "router")
     graph.add_node("tool_router", tool_router_node)
     graph.add_edge("router", "tool_router")
