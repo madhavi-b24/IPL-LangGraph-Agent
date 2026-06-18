@@ -26,4 +26,7 @@ class IPLAgentState(TypedDict):
     final_answer: str
     sources: List[str]
     confidence: float
+    confidence_score: float
+    confidence_level: str
+    source_attribution: List[dict]
     nodes_activated: List[str]       # tracks which nodes ran (for UI display)

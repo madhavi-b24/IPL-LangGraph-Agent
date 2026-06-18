@@ -34,6 +34,9 @@ def empty_state(query: str) -> dict:
         "final_answer": "",
         "sources": [],
         "confidence": 0.0,
+        "confidence_score": 0.5,
+        "confidence_level": "MEDIUM",
+        "source_attribution": [],
         "nodes_activated": [],
     }
 

@@ -104,6 +104,91 @@ def _has_any(text: str, phrases: list[str]) -> bool:
     return any(phrase in text for phrase in phrases)
 
 
+def _clamp_score(value: float, minimum: float = 0.0, maximum: float = 1.0) -> float:
+    try:
+        value = float(value)
+    except Exception:
+        return minimum
+    if value != value:  # NaN
+        return minimum
+    return max(min(value, maximum), minimum)
+
+
+def _confidence_level(score: float) -> str:
+    if score < 0.50:
+        return "LOW"
+    if score < 0.80:
+        return "MEDIUM"
+    return "HIGH"
+
+
+def _collect_source_attribution(docs: list) -> list[dict]:
+    try:
+        seen = set()
+        attribution = []
+        for doc in docs:
+            metadata = doc.metadata or {}
+            section = str(metadata.get("section", "unknown"))
+            page = str(metadata.get("page", "n/a"))
+            source = str(metadata.get("source", "IPL Dataset"))
+            key = (section, page, source)
+            if key in seen:
+                continue
+            seen.add(key)
+            attribution.append({
+                "section": section,
+                "page": page,
+                "source": source,
+                "metadata": {
+                    k: v for k, v in metadata.items()
+                    if k not in {"_retrieval_score", "_cross_encoder_score"}
+                },
+            })
+        return attribution
+    except Exception:
+        return []
+
+
+def _compute_confidence(state: IPLAgentState, docs: list) -> tuple[float, str]:
+    try:
+        tool_confidence = _clamp_score(state.get("tool_confidence", 0.0))
+        retrieval_scores = [
+            _clamp_score(doc.metadata.get("_retrieval_score", 0.0))
+            for doc in docs
+            if getattr(doc, "metadata", None) is not None
+        ]
+        rerank_scores = [
+            _clamp_score(doc.metadata.get("_cross_encoder_score", doc.metadata.get("_retrieval_score", 0.0)))
+            for doc in docs
+            if getattr(doc, "metadata", None) is not None
+        ]
+
+        retrieval_score = (
+            sum(retrieval_scores) / len(retrieval_scores)
+            if retrieval_scores
+            else 0.5
+        )
+        cross_encoder_score = (
+            sum(rerank_scores) / len(rerank_scores)
+            if rerank_scores
+            else retrieval_score
+        )
+
+        support_ratio = min(len(docs), 6) / 6.0 if docs else 0.0
+
+        confidence_score = (
+            0.40 * retrieval_score
+            + 0.25 * cross_encoder_score
+            + 0.20 * tool_confidence
+            + 0.15 * support_ratio
+        )
+        confidence_score = _clamp_score(confidence_score)
+        confidence_level = _confidence_level(confidence_score)
+        return confidence_score, confidence_level
+    except Exception:
+        return 0.5, "MEDIUM"
+
+
 # ── NODE 1: RouterNode ──────────────────────────────────────────────────────
 def router_node(state: IPLAgentState) -> IPLAgentState:
     """Classifies query type and extracts team/player entity names."""
@@ -272,11 +357,18 @@ def synthesis_node(state: IPLAgentState) -> IPLAgentState:
 
     validation_notes = state.get("synthesised_context", "").strip()
 
+    confidence_score, confidence_level = _compute_confidence(state, all_docs)
+    source_attribution = _collect_source_attribution(all_docs)
+
     if not all_docs:
         return {
             **state,
             "final_answer": "Information not available in dataset.",
             "sources": [],
+            "confidence": confidence_score,
+            "confidence_score": confidence_score,
+            "confidence_level": confidence_level,
+            "source_attribution": source_attribution,
             "nodes_activated": activated,
         }
 
@@ -317,6 +409,19 @@ Query: {state["user_query"]}
 
 Answer:"""
 
+    confidence_score, confidence_level = _compute_confidence(state, all_docs)
+    source_attribution = _collect_source_attribution(all_docs)
+    print("[CONFIDENCE]")
+    print(f"Score: {confidence_score:.4f}")
+    print(f"Level: {confidence_level}")
+    print("[SOURCES]")
+    print(f"Source Count: {len(source_attribution)}")
+    print(
+        "Source List: " + ", ".join(
+            f"{item['section']}|page {item['page']}" for item in source_attribution
+        )
+    )
+
     llm = _get_llm()
     if llm is None:
         # No LLM available (no GROQ_API_KEY). Return a safe fallback summarising retrieved context.
@@ -329,6 +434,10 @@ Answer:"""
             **state,
             "final_answer": fallback,
             "sources": sources,
+            "confidence": confidence_score,
+            "confidence_score": confidence_score,
+            "confidence_level": confidence_level,
+            "source_attribution": source_attribution,
             "nodes_activated": activated,
         }
 
@@ -338,5 +447,9 @@ Answer:"""
         **state,
         "final_answer": response.content,
         "sources": sources,
+        "confidence": confidence_score,
+        "confidence_score": confidence_score,
+        "confidence_level": confidence_level,
+        "source_attribution": source_attribution,
         "nodes_activated": activated,
     }

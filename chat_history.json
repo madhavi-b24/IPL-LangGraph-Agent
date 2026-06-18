@@ -1,222 +1,47 @@
 [
   {
-    "query": "Who captains Chennai Super Kings in 2024?",
-    "answer": "Ruturaj Gaikwad captains Chennai Super Kings in 2024.",
-    "time_taken": 1.08
-  },
-  {
-    "query": "List all bowlers with an economy rate below 7.0.",
-    "answer": "Based on the provided context, the list of bowlers with an economy rate below 7.0 is:\n\n- Sunil Narine (Econ: 6.69)\n- Rashid Khan (Econ: 6.68)\n- Harbhajan Singh (Econ: 6.97)",
-    "time_taken": 1.42
-  },
-  {
-    "query": "CSK is playing RCB at Chinnaswamy. Who will win?",
-    "answer": "Information not available in dataset.",
-    "time_taken": 2.1
-  },
-  {
-    "query": "What bowling strategy should SRH use at MA Chidambaram against CSK?",
-    "answer": "Based on the provided context, the bowling strategy for SRH at MA Chidambaram against CSK should be to use spinners, as the Chennai pitch is described as the most spin-friendly in the IPL. The key skill here is playing spin under pressure, which CSK has historically struggled with.\n\nSpecifically, SRH should consider using leg-spinners and off-spinners, as they become virtually unplayable in the second innings on this surface.",
-    "time_taken": 1.45
-  },
-  {
-    "query": "Suggest a Dream11 XI for MI vs SRH at Wankhede tonight.",
-    "answer": "Based on the provided context, here's a suggested Dream11 XI for MI vs SRH at Wankhede tonight:\n\n**Batters:**\n1. Rohit Sharma (MI) - Opener\n2. Suryakumar Yadav (MI) - Middle-order\n3. Ishan Kishan (MI) - Middle-order\n4. Abhishek Sharma (SRH) - Opener\n5. Travis Head (SRH) - Opener\n\n**All-rounders:**\n1. Hardik Pandya (MI) - All-rounder\n2. Rashid Khan (GT) - All-rounder (available for SRH)\n\n**Bowlers:**\n1. Jasprit Bumrah (MI) - Fast bowler\n2. Rashid Khan (GT) - Spinner\n3. Bhuvneshwar Kumar (SRH) - Fast bowler (available for SRH)\n\n**Wicket-keeper:**\n1. Ishan Kishan (MI) - WK-Bat\n\nThis XI is based on the players' recent form and strengths, considering the context provided. However, please note that this is just a suggested team and not an actual prediction.",
-    "time_taken": 2.18
-  },
-  {
-    "query": "Which opener has the highest strike rate?",
-    "answer": "To find the opener with the highest strike rate, we need to filter the data by Role='Opener' and then sort by SR (Strike Rate).\n\nHere are the openers from the provided context:\n\n- Shubman Gill (GT) - Opener\n- Ruturaj Gaikwad (CSK) - Opener\n- Sanju Samson (RR) - Opener\n- KL Rahul (LSG) - Opener/WK\n- Shreyas Iyer (KKR) - Middle-order (not an opener)\n- Jos Buttler (RR) - Opener/WK\n- Faf du Plessis (RCB) - Opener\n- Travis Head (SRH) - Opener\n- Abhishek Sharma (SRH) - Opener\n- MS Dhoni (CSK) - WK-Finisher (not an opener)\n- Rohit Sharma (MI) - Opener\n- David Warner (DC) - Opener\n- Quinton de Kock (LSG) - Opener/WK\n- Heinrich Klaasen (SRH) - Opener/WK\n\nFiltered list of openers:\n- Shubman Gill (GT)\n- Ruturaj Gaikwad (CSK)\n- Sanju Samson (RR)\n- KL Rahul (LSG)\n- Jos Buttler (RR)\n- Faf du Plessis (RCB)\n- Travis Head (SRH)\n- Abhishek Sharma (SRH)\n- Rohit Sharma (MI)\n- David Warner (DC)\n- Quinton de Kock (LSG)\n- Heinrich Klaasen (SRH)\n\nSorted by SR (Strike Rate):\n- Travis Head (SRH) - 191.6\n- Abhishek Sharma (SRH) - 188.3\n- Jos Buttler (RR) - 149.2\n- David Warner (DC) - 139.9\n- Faf du Plessis (RCB) - 134.2\n- KL Rahul (LSG) - 134.3\n- Ruturaj Gaikwad (CSK) - 136.8\n- Shubman Gill (GT) - 148.7\n- Quinton de Kock (LSG) - 138.9\n- Heinrich Klaasen (SRH) - 162.8\n- Rohit Sharma (MI) - 130.5\n- Sanju Samson (RR) - 140.5\n\nThe opener with the highest strike rate is:\n- Travis Head (SRH) - 191.6",
-    "time_taken": 14.87
-  },
-  {
-    "query": "who captains CSK in 2024",
-    "answer": "Ruturaj Gaikwad captains CSK in 2024.",
-    "time_taken": 1.27
-  },
-  {
-    "query": "Highest strike rate opener",
-    "answer": "To find the highest strike rate opener, we need to filter the data by Role='Opener' and then sort by SR (Strike Rate).\n\nHere are the results:\n\n| Player | Team | SR |\n| --- | --- | --- |\n| Travis Head | SRH | 191.6 |\n| Abhishek Sharma | SRH | 188.3 |\n| Shubman Gill | GT | 148.7 |\n| Ruturaj Gaikwad | CSK | 136.8 |\n| Sanju Samson | RR | 140.5 |\n| KL Rahul | LSG | 134.3 |\n| Jos Buttler | RR | 149.2 |\n\nThe top 3 highest strike rate openers are:\n- Travis Head (SRH) with a strike rate of 191.6\n- Abhishek Sharma (SRH) with a strike rate of 188.3\n- Shubman Gill (GT) with a strike rate of 148.7",
-    "time_taken": 3.03
-  },
-  {
-    "query": "MI vs CSK head to head",
-    "answer": "To answer the new question, I will refer to the provided context.\n\nMI vs CSK head-to-head results:\n\n| Matchup | Total Matches | Team 1 Wins | Team 2 Wins | Tied/NR | Last 5 (\u2192 winner) | High Score | Key Factor |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| MI vs CSK | 35 | 20 | 14 | 1 | MI,CSK,MI,CSK,MI | 235/1 (MI) | Bumrah vs Dhoni |\n\nNote that the context mentions a conflict for the number of matches between MI vs CSK, with 35 from one source and 33 from another. However, the provided data shows 35 matches.",
-    "time_taken": 14.61
-  },
-  {
-    "query": "How many times have MI and CSK played each other",
-    "answer": "Information not available in dataset.",
-    "time_taken": 5.9
-  },
-  {
-    "query": "list bowlers with economy below 7",
-    "answer": "Information not available in dataset.",
-    "time_taken": 2.26
-  },
-  {
-    "query": "csk captain",
+    "query": "CSK captain",
     "answer": "Ruturaj Gaikwad is the captain of CSK.",
-    "time_taken": 1.47
-  },
-  {
-    "query": "CSK vs RCB at Chinnaswamy",
-    "answer": "To answer the query, we need to consider the team strategies and strengths of CSK and RCB, as well as the characteristics of the Chinnaswamy venue.\n\nFrom Chunk 5, we know that CSK's strategy is to anchor the innings, use spinners in middle overs, and finish with big hitters. They rely on spinners on slow pitches, which suggests that they might struggle on the flat pitch at Chinnaswamy.\n\nOn the other hand, RCB's strategy is to post 180+ totals and defend with pace. They rely heavily on Kohli and du Plessis for big scores, which suggests that they have a strong batting lineup.\n\nFrom Chunk 7, we know that Chinnaswamy is a batter-friendly ground with short boundaries and a flat pitch. This suggests that both teams will have an advantage in batting.\n\nConsidering these factors, here are some possible outcomes:\n\n* CSK might struggle to contain RCB's batting lineup, especially if Kohli and du Plessis get going.\n* RCB might be able to post a big total, which could put pressure on CSK's batting lineup.\n* CSK's spinners might not be as effective on the flat pitch at Chinnaswamy, which could give RCB an advantage.\n\nHowever, it's worth noting that CSK has a strong team with experienced players like Dhoni, and they have a good record in the IPL. RCB, on the other hand, has a strong batting lineup, but their bowling lineup has been inconsistent in the past.\n\nTherefore, the outcome of the match is uncertain, and it's difficult to predict a clear winner.",
-    "time_taken": 4.71
-  },
-  {
-    "query": "How many times have MI and CSK played each other?",
-    "answer": "From Chunk 7 and Chunk 8, we can see that the head-to-head matchup between MI and CSK is mentioned twice. \n\n- In Chunk 7, it is mentioned that MI vs CSK has a total of 35 matches.\n- In Chunk 8, it is also mentioned that MI vs CSK has a total of 28 matches.\n\nHowever, in Chunk 5, it is mentioned that there is a conflict between the primary and secondary sources regarding the total number of matches between MI and CSK, with the primary source stating 35 matches and the secondary source stating 33 matches.\n\nSince the conflict is not resolved, we cannot provide a single answer. However, based on the information available, we can say that the total number of matches between MI and CSK is either 35 or 33.",
-    "time_taken": 18.05
-  },
-  {
-    "query": "CSK is playing RCB at Chinnaswamy. Who will win?",
-    "answer": "Information not available in dataset.",
-    "time_taken": 2.45
-  },
-  {
-    "query": "Suggest a Dream11 XI for MI vs SRH at Wankhede tonight.",
-    "answer": "To suggest a Dream11 XI for MI vs SRH at Wankhede tonight, we need to consider the recent form of players and the head-to-head records between the two teams.\n\n**Recent Form:**\n\n- Travis Head (SRH) - Excellent form with an average of 59.0 in the last 5 matches.\n- Jasprit Bumrah (MI) - Excellent form with 2.4 wkts/gam.\n- Rohit Sharma (MI) - Average form with an average of 32.6 in the last 5 matches.\n- Jos Buttler (RR) - Mixed form with an average of 46.6 in the last 5 matches.\n\n**Head-to-Head Records:**\n\n- MI vs SRH - Total Matches: 28, MI wins: 16, SRH wins: 12, Tied/NR: 0.\n\n**Dream11 XI Suggestion:**\n\nBased on the recent form and head-to-head records, here's a suggested Dream11 XI for MI vs SRH at Wankhede tonight:\n\n1. Captain - Travis Head (SRH)\n2. Vice-Captain - Jasprit Bumrah (MI)\n3. Batters - Rohit Sharma (MI), Jos Buttler (RR), Abhishek Sharma (SRH)\n4. All-Rounders - Hardik Pandya (MI), Suryakumar Yadav (MI)\n5. Bowlers - Jasprit Bumrah (MI), Rashid Khan (GT), TBA (SRH)\n\nNote: The fifth bowler can be chosen based on the current team selection and the pitch conditions at Wankhede.",
-    "time_taken": 5.68
-  },
-  {
-    "query": "highest strike rate opener",
-    "answer": "To find the highest strike rate opener, we need to filter by Role='Opener' and then sort by SR.\n\nFrom Chunk 1:\n- MS Dhoni (CSK) - SR: 135.9\n- Ishan Kishan (MI) - SR: 136.2\n- Quinton de Kock (LSG) - SR: 138.9\n- Heinrich Klaasen (SRH) - SR: 162.8\n\nFrom Chunk 2:\n- Sanju Samson (RR) - SR: 140.5\n- KL Rahul (LSG) - SR: 134.3\n- Shreyas Iyer (KKR) - SR: 127.8\n- Jos Buttler (RR) - SR: 149.2\n- Faf du Plessis (RCB) - SR: 134.2\n- Abhishek Sharma (SRH) - SR: 188.3\n- Travis Head (SRH) - SR: 191.6\n\nFrom Chunk 3:\n- Ruturaj Gaikwad (CSK) - SR: 136.8\n- Shubman Gill (GT) - SR: 148.7\n\n**Highest Strike Rate Opener:**\n\n| Player | Team | SR |\n| --- | --- | --- |\n| Heinrich Klaasen | SRH | 162.8 |\n| Abhishek Sharma | SRH | 188.3 |\n| Travis Head | SRH | 191.6 |\n| Shubman Gill | GT | 148.7 |\n| Jos Buttler | RR | 149.2 |\n\nThe highest strike rate opener is Heinrich Klaasen (SRH) with an SR of 162.8.",
-    "time_taken": 20.62
-  },
-  {
-    "query": "bowlers with economy below 7",
-    "answer": "Based on the provided context, the bowlers with economy below 7 are:\n\n| Player | Team | Econ |\n| --- | --- | --- |\n| Sunil Narine | KKR | 6.69 |\n| Harbhajan Singh | MI | 6.97 |\n| Rashid Khan | GT | 6.68 |",
-    "time_taken": 14.28
+    "time_taken": 19.98
   },
   {
     "query": "MI vs CSK head to head",
-    "answer": "Based on the provided context, the MI vs CSK head-to-head record is as follows:\n\n| Matchup | Total Matches | Team 1 Wins | Team 2 Wins | Tied/NR | Last 5 (\u2192 winner) | High Score | Key Factor |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| MI vs CSK | 35 | 20 | 14 | 1 | MI,CSK,MI,CSK,MI | 235/1 (MI) | Bumrah vs Dhoni |",
-    "time_taken": 17.41
+    "answer": "MI vs CSK Head-to-Head:\n\n- Total Matches: 35\n- MI Wins: 20\n- CSK Wins: 14\n- Tied/NR: 1\n- Last 5 (\u2192 winner): MI,CSK,MI,CSK,MI\n- High Score: 235/1 (MI)\n- Key Factor: Bumrah vs Dhoni",
+    "time_taken": 1.89
   },
   {
-    "query": "how many times have MI and CSK played each other",
-    "answer": "According to the provided context, the number of times MI and CSK have played each other is:\n\n- 35 (from Chunk 4)\n- 33 (from Chunk 6)\n\nSince there is a conflict between the two values, the answer is:\n\nInformation not available in dataset.",
-    "time_taken": 17.66
+    "query": "virat kholi strike rate",
+    "answer": "Information not available in dataset.",
+    "time_taken": 1.78
   },
   {
-    "query": "who leads chennai super kings",
-    "answer": "Since the context explicitly mentions the information about Chennai Super Kings, the answer is:\n\nRuturaj Gaikwad leads Chennai Super Kings.",
-    "time_taken": 18.48
+    "query": "Best Dream11 team for CSK vs RCB",
+    "answer": "Information not available in dataset.",
+    "time_taken": 1.67
   },
   {
-    "query": "drea11 team for csk vs rcb",
-    "answer": "Since the context explicitly mentions the information about Chennai Super Kings vs Royal Challengers Bangalore (RCB), the answer is:\n\nThe matchup between CSK and RCB has the following records:\n\n- Total Matches: 30\n- CSK Wins: 22\n- RCB Wins: 8\n- Tied/NR: 0\n- Last 5 (\u2192 winner): CSK,CSK,RCB,CSK,RCB\n- High Score: 226/6 (RCB)",
-    "time_taken": 17.56
-  },
-  {
-    "query": "best death bowler",
-    "answer": "Based on the provided context, the best death bowler can be identified as the bowler with the best economy rate in the death overs (overs 16-20). \n\nFrom the context, we can see that:\n\n- Jasprit Bumrah (MI) has an economy rate of 7.39 and relies on death bowling.\n- Trent Boult (RR) has an economy rate of 8.18, but his best figures are in swing bowling.\n- Mohammed Shami (GT) has an economy rate of 8.02, but his best figures are in fast bowling.\n- Rashid Khan (GT) has an economy rate of 6.68, but his best figures are in leg-spin.\n\nHowever, the best death bowler is not explicitly mentioned in the context. \n\nConsidering the information available, we can make a comparison of the economy rates of the bowlers mentioned:\n\n- Jasprit Bumrah (MI): 7.39\n- Mohammed Shami (GT): 8.02\n- Trent Boult (RR): 8.18\n\nBased on this comparison, Jasprit Bumrah (MI) has the best economy rate among the mentioned bowlers, making him a strong candidate for the best death bowler.\n\n**Best Death Bowler:**\n- Jasprit Bumrah (MI) with an economy rate of 7.39.",
-    "time_taken": 6.83
-  },
-  {
-    "query": "RCB vs CSK at Chinnaswamy",
-    "answer": "Based on the provided context, we can see that RCB relies heavily on Kohli and du Plessis for big scores and has a strategy to post 180+ totals and defend with pace. They have a home advantage at the high-scoring Chinnaswamy stadium.\n\nCSK, on the other hand, relies on spinners on slow Chennai pitch and Dhoni's finishing. They have a strategy to anchor the innings, use spinners in middle overs, and finish with big hitters.\n\nConsidering these team strategies, it can be inferred that RCB might have an advantage at Chinnaswamy, but CSK's spinners and Dhoni's finishing might make them a strong contender. However, without more information about the specific match conditions and player performances, it's difficult to make a definitive prediction.\n\n**Key factors to consider:**\n\n- RCB's home advantage at Chinnaswamy\n- CSK's spinners and Dhoni's finishing\n- Kohli and du Plessis's big scores for RCB\n- CSK's ability to anchor the innings and use spinners effectively\n\n**Prediction:** A closely contested match with both teams having a chance to win.",
-    "time_taken": 6.42
+    "query": "who will win MI vs CSK",
+    "answer": "Information not available in dataset.",
+    "time_taken": 7.81
   },
   {
     "query": "MI vs CSK head to head",
-    "answer": "Based on the provided context, here's the answer to the new question:\n\nMI vs CSK Head-to-Head:\n\n- Total Matches: 35\n- MI Wins: 20\n- CSK Wins: 14\n- Tied/NR: 1\n- Last 5 (\u2192 winner): MI, CSK, MI, CSK, MI\n- High Score: 235/1 (MI)",
-    "time_taken": 18.53
+    "answer": "MI vs CSK Head-to-Head:\n\n| Matchup | Total Matches | Team 1 Wins | Team 2 Wins | Tied/NR | Last 5 (\u2192 winner) | High Score | Key Factor |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| MI vs CSK | 35 | 20 | 14 | 1 | MI,CSK,MI,CSK,MI | 235/1 (MI) | Bumrah vs Dhoni |",
+    "time_taken": 32.68
   },
   {
-    "query": "csk captain",
-    "answer": "Ruturaj Gaikwad is the captain of CSK.",
-    "time_taken": 15.91
+    "query": "Best Dream11 team for CSK vs RCB",
+    "answer": "To answer the new question, we need to analyze the recent form of CSK and RCB players. \n\nFrom Chunk 7: Recent Form \u2014 Last 5 IPL Matches (2024 Season), we can see the recent form of CSK and RCB players:\n\n**CSK:**\n- Ruturaj Gaikwad: Not available in the recent form data.\n- MS Dhoni: Not available in the recent form data.\n\n**RCB:**\n- Virat Kohli: 92, 47, 0, 73, 113 (\u2191 Excellent, 65.0)\n- AB de Villiers: Not available in the recent form data.\n\nBased on the recent form data, a potential Dream11 team for CSK vs RCB could be:\n\n- Virat Kohli (RCB) - Excellent form\n- Ruturaj Gaikwad (CSK) - Not available, but a strong CSK player\n- MS Dhoni (CSK) - Not available, but a strong CSK player\n- Jasprit Bumrah (MI) - Excellent form, but not playing for CSK or RCB\n- Rashid Khan (GT) - Consistent form, but not playing for CSK or RCB\n- Hardik Pandya (MI) - Not available in the recent form data\n\nPlease note that this is a hypothetical team and not a real Dream11 team. The actual team would depend on the current team compositions and player availability.",
+    "time_taken": 8.55
   },
   {
-    "query": "MI vs CSK head to head",
-    "answer": "From the provided context, the head-to-head (H2H) records between MI and CSK are as follows:\n\n- **Total Matches:** 35 (from Chunk 5) and 33 (from Chunk 5) - **Conflict:** Count mismatch\n- **MI Wins:** 20 (from Chunk 7) and 14 (from Chunk 7) - **Conflict:** Value mismatch\n- **CSK Wins:** 14 (from Chunk 7) and 18 (from Chunk 7) - **Conflict:** Value mismatch\n- **Tied/NR:** 1 (from Chunk 7)\n- **Last 5 (\u2192 winner):** MI,CSK,MI,CSK,MI (from Chunk 7)\n- **High Score:** 235/1 (MI) (from Chunk 7)\n\nConsidering the conflicts, we cannot determine a single value for the total matches. However, we can provide the values from Chunk 7, which are 20-14 in favor of MI.",
-    "time_taken": 2.13
+    "query": "CSK captain",
+    "answer": "From Chunk 8: Section 1: IPL Team Profiles (2024 Season), the CSK captain is Ruturaj Gaikwad.",
+    "time_taken": 2.59
   },
   {
-    "query": "Dream11 query",
-    "answer": "Since the previous conversation about MI vs CSK head-to-head records had a conflict in the total matches count, I will not use that information. However, I can still answer the Dream11 query.\n\nFor the Dream11 query, we need to suggest a team for MI vs SRH at Wankhede tonight. \n\n**Captain:** Travis Head\n**Vice-Captain:** Jasprit Bumrah\n\n**Team:**\n\n1. Travis Head (SRH) - 102, 34, 58, 12, 89\n2. Jasprit Bumrah (MI) - 3/24, 2/18, 4/10\n3. Rohit Sharma (MI) (c) - 11, 8, 34, 67, 43\n4. Abhishek Sharma (SRH) - 135*\n5. Sanju Samson (RR) - \n6. Rashid Khan (GT) - 2/18, 1/22, 3/15, 0/34, 2/20\n7. Jos Buttler (RR) - 67, 0, 89, 45, 32",
-    "time_taken": 1.53
-  },
-  {
-    "query": "who is the captain of csk",
-    "answer": "According to Chunk 4 | section=team | page=1, the captain of CSK is Ruturaj Gaikwad.",
-    "time_taken": 2.18
-  },
-  {
-    "query": "who has the highest strike rate among openers?",
-    "answer": "To find the player with the highest strike rate among openers, we need to filter the data by Role='Opener' and then sort by SR (strike rate).\n\nFrom Chunk 1 | section=batting | page=2:\n\n| Player | Role |\n| --- | --- |\n| Shubman Gill | Opener |\n| Ruturaj Gaikwad | Opener |\n| Sanju Samson | WK-Bat |\n| KL Rahul | Opener/WK |\n| Shreyas Iyer | Middle-order |\n| MS Dhoni | WK-Finisher |\n| AB de Villiers | Middle-order |\n| Ishan Kishan | Opener/WK |\n| Quinton de Kock | Opener/WK |\n| Heinrich Klaasen | Middle-order |\n\nFrom Chunk 3 | section=batting | page=2:\n\n| Player | Role |\n| --- | --- |\n| Ruturaj Gaikwad | Opener |\n| KL Rahul | Opener/WK |\n| Shreyas Iyer | Middle-order |\n| David Warner | Opener |\n| Jos Buttler | Opener/WK |\n| Faf du Plessis | Opener |\n| Travis Head | Opener |\n| Abhishek Sharma | Opener |\n| MS Dhoni | WK-Finisher |\n| AB de Villiers | Middle-order |\n| Ishan Kishan | Opener/WK |\n\nFiltering by Role='Opener' and sorting by SR:\n\n| Player | SR |\n| --- | --- |\n| Travis Head | 191.6 |\n| Abhishek Sharma | 188.3 |\n| Jos Buttler | 149.2 |\n| Shubman Gill | 148.7 |\n| David Warner | 139.9 |\n| Faf du Plessis | 134.2 |\n| KL Rahul | 134.3 |\n| Ruturaj Gaikwad | 136.8 |\n| Ishan Kishan | 136.2 |\n\nThe player with the highest strike rate among openers is Travis Head with a strike rate of 191.6.",
-    "time_taken": 1.76
-  },
-  {
-    "query": "MI vs CSK head to head",
-    "answer": "From the provided context, the head-to-head (H2H) records between MI and CSK are as follows:\n\n- **Total Matches:** 35 (from Chunk 5) and 33 (from Chunk 5) - **Conflict:** Count mismatch\n- **MI Wins:** 20 (from Chunk 7) and 14 (from Chunk 7) - **Conflict:** Value mismatch\n- **CSK Wins:** 14 (from Chunk 7) and 18 (from Chunk 7) - **Conflict:** Value mismatch\n- **Tied/NR:** 1 (from Chunk 7)\n- **Last 5 (\u2192 winner):** MI,CSK,MI,CSK,MI (from Chunk 7)\n- **High Score:** 235/1 (MI) (from Chunk 7)\n\nConsidering the conflicts, we cannot determine a single value for the total matches. However, we can provide the values from Chunk 7, which are 20-14 in favor of MI.",
-    "time_taken": 0.04
-  },
-  {
-    "query": "How does Chinnaswamy pitch behave?",
-    "answer": "Chinnaswamy pitch is described as batter-friendly, with short boundaries all around, a flat pitch, and high altitude, which means the ball travels further. This results in 200+ totals being common, and no total is ever safe at this ground.",
-    "time_taken": 2.61
-  },
-  {
-    "query": "Dream11 team for CSK vs RCB",
-    "answer": "To build a Dream11 team for CSK vs RCB, we need to consider the strengths of both teams and the players' recent form.\n\n**Recent Form:**\n\n- Virat Kohli (RCB): Excellent form, with an average of 65.0 in the last 5 matches.\n- Faf du Plessis (RCB): Not mentioned in the recent form section.\n- Ruturaj Gaikwad (CSK): Not mentioned in the recent form section.\n- Jos Buttler (RCB): Mixed form, with an average of 46.6 in the last 5 matches.\n\n**Team Strategies:**\n\n- CSK: Relies on spinners on slow Chennai pitch and Dhoni's finishing.\n- RCB: Relies heavily on Kohli and du Plessis for big scores and has a home advantage at high-scoring Chinnaswamy.\n\n**Dream11 Team Suggestion:**\n\nConsidering the recent form and team strategies, here's a possible Dream11 team for CSK vs RCB:\n\n- Batsmen: Virat Kohli (RCB), Ruturaj Gaikwad (CSK), Jos Buttler (RCB)\n- All-rounders: Hardik Pandya (MI), Ravindra Jadeja (CSK)\n- Bowlers: Jasprit Bumrah (MI), Deepak Chahar (CSK)\n\nNote: This is just a suggestion based on the available information and not a definitive team. The actual team composition may vary depending on the specific match conditions and player availability.",
-    "time_taken": 2.02
-  },
-  {
-    "query": "who will win csk vs rcb",
-    "answer": "Information not available in dataset.",
-    "time_taken": 1.88
-  },
-  {
-    "query": "who will win csk vs rcb",
-    "answer": "Information not available in dataset.",
-    "time_taken": 56.26
-  },
-  {
-    "query": "Dream11 team for CSK vs RCB",
-    "answer": "To create a Dream11 team for CSK vs RCB, we need to consider the top performers from both teams. \n\n**CSK Top Performers:**\n\n- Ruturaj Gaikwad (Opener)\n- MS Dhoni (WK-Finisher)\n- Faf du Plessis (Opener)\n- Ravindra Jadeja (All-rounder)\n- Deepak Chahar (Bowler)\n\n**RCB Top Performers:**\n\n- Faf du Plessis (Opener)\n- Virat Kohli (Top-order bat)\n- Glenn Maxwell (All-rounder)\n- Harshal Patel (Bowler)\n- Mohammed Siraj (Bowler)\n\n**Dream11 Team:**\n\n1. Ruturaj Gaikwad (CSK) - Opener\n2. Faf du Plessis (RCB) - Opener\n3. Virat Kohli (RCB) - Top-order bat\n4. MS Dhoni (CSK) - WK-Finisher\n5. Glenn Maxwell (RCB) - All-rounder\n6. Ravindra Jadeja (CSK) - All-rounder\n7. Deepak Chahar (CSK) - Bowler\n8. Harshal Patel (RCB) - Bowler\n9. Mohammed Siraj (RCB) - Bowler\n\nNote: This is a suggested team based on the available data and may not be the actual best team for the match.",
-    "time_taken": 2.43
-  },
-  {
-    "query": "How does Chinnaswamy pitch behave?",
-    "answer": "According to Chunk 5 | section=venue | page=6, M Chinnaswamy, Bengaluru is described as a batter-friendly ground with a flat pitch and high altitude, which means the ball travels further. This results in 200+ totals being common, and the 2024 season saw multiple 220+ scores here.",
-    "time_taken": 10.86
-  },
-  {
-    "query": "MI vs CSK head to head",
-    "answer": "MI vs CSK head to head:\n\n- Total Matches: 35\n- Team 1 (MI) Wins: 20\n- Team 2 (CSK) Wins: 14\n- Tied/NR: 1\n- Last 5 (\u2192 winner): MI, CSK, MI, CSK, MI\n- High Score: 235/1 (MI)\n- Key Factor: Bumrah vs Dhoni",
-    "time_taken": 32.84
-  },
-  {
-    "query": "who will win csk vs rcb",
-    "answer": "Information not available in dataset.",
-    "time_taken": 20.27
-  },
-  {
-    "query": "Dream11 team for CSK vs RCB",
-    "answer": "To create a Dream11 team for CSK vs RCB, we need to consider the recent form and performance of both teams and their players. \n\n**Recent Form:**\n\n- CSK: \n  - Recent 5 matches: MI, CSK, MI, CSK, MI (Won 4, Lost 1)\n  - High Score: 235/1 (MI)\n- RCB: \n  - Recent 5 matches: KKR, RCB, KKR, KKR, RCB (Won 4, Lost 1)\n  - High Score: 226/6 (RCB)\n\n**Recent Player Performance:**\n\n- CSK: \n  - Ruturaj Gaikwad: 92, 47, 0, 73, 113 (\u2191 Excellent, 65.0 Avg)\n  - MS Dhoni: No recent match data available\n  - Ravindra Jadeja: No recent match data available\n- RCB: \n  - Faf du Plessis: 92, 47, 0, 73, 113 (\u2191 Excellent, 65.0 Avg)\n  - Virat Kohli: 92, 47, 0, 73, 113 (\u2191 Excellent, 65.0 Avg)\n  - Glenn Maxwell: No recent match data available\n\n**Dream11 Team Suggestion:**\n\nConsidering the recent form and performance of both teams and their players, a possible Dream11 team for CSK vs RCB could be:\n\n1. Ruturaj Gaikwad (CSK) - 65.0 Avg\n2. Faf du Plessis (RCB) - 65.0 Avg\n3. Virat Kohli (RCB) - 65.0 Avg\n4. Ravindra Jadeja (CSK) - No recent match data available (assuming he will perform well)\n5. Glenn Maxwell (RCB) - No recent match data available (assuming he will perform well)\n6. Jasprit Bumrah (MI) - 2.4 wkts/gam (\u2191 Excellent)\n7. Rashid Khan (GT) - 1.6 wkts/gam (\u2192 Consistent)\n8. Hardik Pandya (MI) - No recent match data available (assuming he will perform well)\n\nPlease note that this is just a suggestion based on the available data and not a definitive prediction. The actual performance of the players and teams may vary.",
-    "time_taken": 2.27
-  },
-  {
-    "query": "who will win csk vs rcb",
-    "answer": "Information not available in dataset.",
-    "time_taken": 21.72
-  },
-  {
-    "query": "How does Chinnaswamy pitch behave?",
-    "answer": "Information not available in dataset.",
-    "time_taken": 2.21
-  },
-  {
-    "query": "Which opener has the highest strike rate?",
-    "answer": "To find the opener with the highest strike rate, we need to filter the data by Role='Opener' and then sort by SR (Strike Rate).\n\nFrom the provided data, the relevant rows are:\n\n- Opener\nShubman Gill\n GT\n 98\n 3196\n 42.61\n 148.7\n 3\n 24\n 129\n- Opener\nRuturaj Gaikwad\n CSK\n 87\n 2835\n 38.83\n 136.8\n 2\n 19\n 101*\n- Opener\nSanju Samson\n RR\n 171\n 4410\n 29.86\n 140.5\n 4\n 28\n 119\n- Opener\nKL Rahul\n LSG\n 115\n 4163\n 47.30\n 134.3\n 4\n 33\n 132*\n- Opener\nShreyas Iyer\n KKR\n 115\n 3122\n 33.57\n 127.8\n 1\n 25\n 96\n- Opener\nDavid Warner\n DC\n 184\n 6565\n 41.42\n 139.9\n 4\n 59\n 126\n- Opener\nJos Buttler\n RR\n 89\n 3422\n 46.24\n 149.2\n 5\n 21\n 124\n- Opener\nFaf du Plessis\n RCB\n 121\n 3779\n 38.56\n 134.2\n 2\n 30\n 96\n- Opener\nTravis Head\n SRH\n 21\n 872\n 43.60\n 191.6\n 1\n 6\n 102\n- Opener\nAbhishek Sharma\n SRH\n 40\n 1254\n 33.78\n 188.3\n 1\n 7\n 135*\n- Opener\nMS Dhoni\n CSK\n 250\n 5243\n 39.42\n 135.9\n 0\n 24\n 84*\n- Opener\nAB de Villiers\n RCB\n 184\n 5162\n 39.70\n 151.7\n 3\n 38\n 133*\n\nThe opener with the highest strike rate is:\n- Travis Head\n SRH\n 21\n 872\n 43.60\n 191.6\n 1\n 6\n 102",
-    "time_taken": 19.35
-  },
-  {
-    "query": "Suggest a Dream11 XI for MI vs SRH at Wankhede tonight.",
-    "answer": "To suggest a Dream11 XI for MI vs SRH at Wankhede tonight, we need to consider the following factors:\n\n- Venue: Wankhede (flat, dew, chasing team favored)\n- Recent form: Last 5 IPL Matches (2024 Season)\n- Team strategies: MI and SRH's playing styles and strategies\n\nBased on the provided data, here's a suggested Dream11 XI:\n\n- Captain: Travis Head (SRH) - Excellent form (59.0 avg in last 5 matches)\n- Vice-Captain: Jasprit Bumrah (MI) - Excellent form (2.4 wkts/gam) and must-pick bowler\n- Batters:\n  - Travis Head (SRH) - Excellent form and opening explosiveness\n  - Abhishek Sharma (SRH) - Excellent form (69.0 avg in last 5 matches) and opening explosiveness\n  - Jos Buttler (RR) - Mixed form, but can be a good pick for MI vs SRH\n  - Sanju Samson (RR) - Good form and can be a good pick for MI vs SRH\n- Bowlers:\n  - Jasprit Bumrah (MI) - Must-pick bowler with excellent form\n  - Rashid Khan (GT) - Consistent form and can be a good pick for MI vs SRH\n  - Hardik Pandya (MI) - Can be a good pick for MI vs SRH, but recent form is not available\n\nThis Dream11 XI is based on the provided data and may not be the optimal team.",
-    "time_taken": 33.86
+    "query": "virat kholi strike rate",
+    "answer": "Virat Kohli's strike rate is 130.0.",
+    "time_taken": 6.87
   }
 ]

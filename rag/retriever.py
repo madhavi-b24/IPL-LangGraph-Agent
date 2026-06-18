@@ -245,6 +245,20 @@ def _rank_candidates(candidates, section: str, entities: dict, query: str):
     return ranked
 
 
+def _annotate_score_metadata(doc, retrieval_score: float, cross_encoder_score: Optional[float] = None):
+    try:
+        metadata = doc.metadata if getattr(doc, "metadata", None) is not None else {}
+        if metadata is None:
+            metadata = {}
+        metadata["_retrieval_score"] = retrieval_score
+        if cross_encoder_score is not None:
+            metadata["_cross_encoder_score"] = cross_encoder_score
+        doc.metadata = metadata
+    except Exception:
+        pass
+    return doc
+
+
 def retrieve(query: str, section: str, k: int = 6, entities: Optional[dict] = None):
     expanded_query = expand_query(query)
     detected_entities = entities or detect_entities(query)
@@ -289,7 +303,9 @@ def retrieve(query: str, section: str, k: int = 6, entities: Optional[dict] = No
         candidates.extend((doc, distance, "fallback") for doc, distance in compatible_fallback)
 
     ranked = _rank_candidates(candidates, section, detected_entities, expanded_query)
-    docs = [doc for doc, _, _, _ in ranked[:k]]
+    docs = []
+    for doc, _, _, score in ranked[:k]:
+        docs.append(_annotate_score_metadata(doc, score, score))
 
     print("Retrieved chunks:", len(docs))
     for idx, (doc, distance, source, score) in enumerate(ranked[:k], start=1):
@@ -414,6 +430,9 @@ def hybrid_search(query: str, section: str, k: int = 6):
         print(f"{idx}. section={meta.get('section')} page={meta.get('page')} distance={dist_label} combined_score={score:.4f}")
 
     # return top-k doc objects
-    top_docs = [doc for doc, _, _ in merged_list[:k]]
+    top_docs = []
+    for doc, _, score in merged_list[:k]:
+        top_docs.append(_annotate_score_metadata(doc, score, score))
+
     print("[HYBRID SEARCH] returning", len(top_docs), "docs\n")
     return top_docs
