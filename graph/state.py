@@ -1,4 +1,4 @@
-from typing import TypedDict, List,Dict,Optional
+from typing import Any, TypedDict, List,Dict,Optional,NotRequired
 from langchain_core.documents import Document
 
 
@@ -11,8 +11,11 @@ class IPLAgentState(TypedDict):
     selected_tool: str
     tool_confidence: float
     query_confidence: float
-    selected_agent: str
-    agent_confidence: float
+    selected_agent: NotRequired[str]
+    agent_confidence: NotRequired[float]
+    chat_history: NotRequired[List[dict]]
+    conversation_entities: NotRequired[dict]
+    conversation_summary: NotRequired[str]
 
     # Retrieved context per node
     batting_context: List[Document]
@@ -28,6 +31,7 @@ class IPLAgentState(TypedDict):
     # Final output
     final_answer: str
     sources: List[str]
+    citations: NotRequired[List[dict]]
     confidence: float
     confidence_score: float
     confidence_level: str
@@ -40,4 +44,12 @@ class IPLAgentState(TypedDict):
     evidence_strength: str
     supporting_sources: int
     source_attribution: List[dict]
+    hallucination_score: NotRequired[float]
+    hallucination_flag: NotRequired[bool]
+    hallucination_reason: NotRequired[str]
+    evaluation: NotRequired[dict]
+    overall_quality_score: NotRequired[float]
+    quality_level: NotRequired[str]
+    agent_metadata_filters: NotRequired[dict]
+    agent_retrieval_strategy: NotRequired[Any]
     nodes_activated: List[str]       # tracks which nodes ran (for UI display)

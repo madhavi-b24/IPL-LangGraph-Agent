@@ -133,5 +133,15 @@
     "query": "virat kohli strike rate",
     "answer": "Virat Kohli's strike rate is 130.0.",
     "time_taken": 4.04
+  },
+  {
+    "query": "who is csk captain",
+    "answer": "Ruturaj Gaikwad is the captain of CSK.\n\nSources:\n- team/page 1\n- batting/page 2\n- records/page 13\n- records/page 9\n- bowling/page 5\n- venue/page 8",
+    "time_taken": 27.09
+  },
+  {
+    "query": "virat kohli strike rate",
+    "answer": "From the provided context, we can find Virat Kohli's strike rate in the \"batting\" section on page 2.\n\n| Player | Team | Mat | Runs | Avg | SR | 100s | 50s | HS | Role |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| Virat Kohli | RCB | 237 | 7263 | 37.17 | 130.0 | 7 | 50 | 113 | Top-order bat |\n\nVirat Kohli's strike rate is 130.0.\n\nSources:\n- batting/page 2\n- bowling/page 1\n- records/page 9\n- records/page 13",
+    "time_taken": 36.76
   }
 ]

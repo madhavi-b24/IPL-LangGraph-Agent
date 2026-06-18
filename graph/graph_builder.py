@@ -17,6 +17,9 @@ from graph.team_node import team_profile_node
 from graph.validation import validation_node
 from verification.answer_verifier import answer_verifier_node
 from evaluation.prediction_confidence import prediction_confidence_node
+from evaluation import evaluation_node
+from memory import memory_node, memory_update_node
+from safety.hallucination_guard import hallucination_guard_node
 from agents import (
     supervisor_node,
     team_agent_node,
@@ -97,6 +100,8 @@ def build_ipl_graph():
 
     # ── Register all nodes ────────────────────────────────────────────
     graph.add_node("rewrite",    rewrite_query_node)
+    graph.add_node("memory", memory_node)
+    graph.add_node("memory_update", memory_update_node)
     graph.add_node("supervisor", supervisor_node)
     graph.add_node("team_agent", team_agent_node)
     graph.add_node("player_agent", player_agent_node)
@@ -114,13 +119,16 @@ def build_ipl_graph():
     graph.add_node("records",    records_node)
     graph.add_node("synthesis",  synthesis_node)
     graph.add_node("validation", validation_node)
+    graph.add_node("hallucination_guard", hallucination_guard_node)
     graph.add_node("answer_verifier", answer_verifier_node)
+    graph.add_node("evaluation", evaluation_node)
 
     # ── Entry point ───────────────────────────────────────────────────
-    graph.set_entry_point("query_classifier")
+    graph.set_entry_point("memory")
 
     # ── QueryClassifier → Rewrite → Router edge ───────────────────────
     graph.add_node("query_classifier", classify_query_node)
+    graph.add_edge("memory", "query_classifier")
     graph.add_edge("query_classifier", "supervisor")
     graph.add_conditional_edges(
         "supervisor",
@@ -174,9 +182,12 @@ def build_ipl_graph():
 
     # ── Synthesis → Validation → AnswerVerifier → END ─────────────────
     graph.add_edge("validation", "synthesis")
-    graph.add_edge("synthesis", "answer_verifier")
+    graph.add_edge("synthesis", "hallucination_guard")
+    graph.add_edge("hallucination_guard", "answer_verifier")
     graph.add_edge("answer_verifier", "prediction_confidence")
     graph.add_node("prediction_confidence", prediction_confidence_node)
-    graph.add_edge("prediction_confidence", END)
+    graph.add_edge("prediction_confidence", "evaluation")
+    graph.add_edge("evaluation", "memory_update")
+    graph.add_edge("memory_update", END)
 
     return graph.compile()

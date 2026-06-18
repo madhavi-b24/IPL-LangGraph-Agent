@@ -149,6 +149,35 @@ def _collect_source_attribution(docs: list) -> list[dict]:
         return []
 
 
+def _collect_citations(source_attribution: list[dict]) -> list[dict]:
+    citations = []
+    seen = set()
+    for item in source_attribution or []:
+        section = str(item.get("section", "unknown"))
+        page = item.get("page", "n/a")
+        key = (section, str(page))
+        if key in seen:
+            continue
+        seen.add(key)
+        citations.append({
+            "section": section,
+            "page": page,
+        })
+    return citations
+
+
+def _append_citations(answer: str, citations: list[dict]) -> str:
+    if not citations:
+        return answer
+
+    stripped = (answer or "").strip()
+    if stripped == "Information not available in dataset.":
+        return answer
+
+    lines = [f"- {item['section']}/page {item['page']}" for item in citations]
+    return f"{stripped}\n\nSources:\n" + "\n".join(lines)
+
+
 def _compute_confidence(state: IPLAgentState, docs: list) -> tuple[float, str]:
     try:
         tool_confidence = _clamp_score(state.get("tool_confidence", 0.0))
@@ -359,12 +388,14 @@ def synthesis_node(state: IPLAgentState) -> IPLAgentState:
 
     confidence_score, confidence_level = _compute_confidence(state, all_docs)
     source_attribution = _collect_source_attribution(all_docs)
+    citations = _collect_citations(source_attribution)
 
     if not all_docs:
         return {
             **state,
             "final_answer": "Information not available in dataset.",
             "sources": [],
+            "citations": [],
             "confidence": confidence_score,
             "confidence_score": confidence_score,
             "confidence_level": confidence_level,
@@ -411,6 +442,7 @@ Answer:"""
 
     confidence_score, confidence_level = _compute_confidence(state, all_docs)
     source_attribution = _collect_source_attribution(all_docs)
+    citations = _collect_citations(source_attribution)
     print("[CONFIDENCE]")
     print(f"Score: {confidence_score:.4f}")
     print(f"Level: {confidence_level}")
@@ -430,10 +462,12 @@ Answer:"""
             preview = " ".join(doc.page_content.split())[:240]
             summary.append(f"[Chunk {idx}] section={doc.metadata.get('section','n/a')} source={doc.metadata.get('source','IPL Dataset')} preview={preview}")
         fallback = "\n\n".join(summary) or "Information not available in dataset."
+        final_answer = _append_citations(fallback, citations)
         return {
             **state,
-            "final_answer": fallback,
+            "final_answer": final_answer,
             "sources": sources,
+            "citations": citations,
             "confidence": confidence_score,
             "confidence_score": confidence_score,
             "confidence_level": confidence_level,
@@ -442,11 +476,13 @@ Answer:"""
         }
 
     response = llm.invoke(prompt)
+    final_answer = _append_citations(response.content, citations)
 
     return {
         **state,
-        "final_answer": response.content,
+        "final_answer": final_answer,
         "sources": sources,
+        "citations": citations,
         "confidence": confidence_score,
         "confidence_score": confidence_score,
         "confidence_level": confidence_level,
