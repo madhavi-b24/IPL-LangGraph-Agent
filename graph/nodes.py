@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from langchain_groq import ChatGroq
@@ -29,6 +30,96 @@ def _get_rewriter_llm():
         else:
             _rewriter_llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
     return _rewriter_llm
+
+
+def _get_planner_llm():
+    global _llm
+    return _get_llm()
+
+
+def _parse_planner_response(response_text: str) -> dict:
+    text = response_text.strip()
+    if not text:
+        raise ValueError("Empty planner response")
+
+    json_start = text.find("{")
+    json_end = text.rfind("}")
+    if json_start != -1 and json_end != -1 and json_end > json_start:
+        text = text[json_start:json_end + 1]
+
+    return json.loads(text)
+
+
+def react_planner_node(state: IPLAgentState) -> IPLAgentState:
+    """Plan the best retrieval domain and strategy for the user's IPL query."""
+    user_query = state["user_query"]
+    planner = _get_planner_llm()
+    activated = state.get("nodes_activated", [])
+    activated.append("ReactPlannerNode")
+
+    default_output = {
+        "reasoning_type": "domain_selection",
+        "selected_strategy": "default_routing",
+        "target_domain": "",
+        "user_query": user_query,
+    }
+
+    if planner is None:
+        print("[REACT] [PLANNER] No GROQ API key available; skipping planner.")
+        return {**state, "nodes_activated": activated}
+
+    prompt = f"""You are an IPL retrieval planner for an internal system. Analyze the user query and choose the best internal retrieval domain for the system.
+
+Available domains: team, batting, bowling, venue, h2h, form, records, prediction, dream11
+
+Output ONLY valid JSON with the following keys:
+- reasoning_type
+- selected_strategy
+- target_domain
+- user_query
+
+Do NOT include your chain of thought or explanation.
+
+Query: {user_query}
+"""
+
+    try:
+        response = planner.invoke(prompt)
+        content = getattr(response, "content", None) or str(response)
+        planner_output = _parse_planner_response(content)
+
+        target_domain = str(planner_output.get("target_domain", "")).strip().lower()
+        selected_strategy = str(planner_output.get("selected_strategy", "")).strip().lower()
+        reasoning_type = str(planner_output.get("reasoning_type", "domain_selection")).strip().lower()
+
+        valid_domains = {"team", "batting", "bowling", "venue", "h2h", "form", "records", "prediction", "dream11"}
+        if target_domain not in valid_domains:
+            print(f"[REACT] [PLANNER] Invalid target domain '{target_domain}' from planner; falling back.")
+            return {**state, "nodes_activated": activated}
+
+        planner_output = {
+            "reasoning_type": reasoning_type,
+            "selected_strategy": selected_strategy or target_domain,
+            "target_domain": target_domain,
+            "user_query": user_query,
+        }
+
+        print(f"[REACT] [PLANNER] user_query={user_query!r}")
+        print(f"[REACT] [PLANNER] planner_output={planner_output}")
+        print(f"[REACT] [STRATEGY] selected_strategy={planner_output['selected_strategy']} target_domain={planner_output['target_domain']}")
+
+        return {
+            **state,
+            "planner_output": planner_output,
+            "planner_reasoning_type": reasoning_type,
+            "planner_selected_strategy": selected_strategy,
+            "planner_target_domain": target_domain,
+            "nodes_activated": activated,
+        }
+    except Exception as exc:
+        print(f"[REACT] [PLANNER] failed to run planner: {exc}")
+        return {**state, "nodes_activated": activated}
+
 
 def rewrite_query_node(state: IPLAgentState) -> IPLAgentState:
     """Rewrites user query for improved semantic retrieval.
@@ -146,6 +237,12 @@ def router_node(state: IPLAgentState) -> IPLAgentState:
         query_type = "team"
     else:
         query_type = "records"  # default fallback
+
+    planner_domain = str(state.get("planner_target_domain", "")).strip().lower()
+    valid_domains = {"team", "batting", "bowling", "venue", "h2h", "form", "records", "prediction", "dream11"}
+    if planner_domain in valid_domains:
+        print(f"[REACT] [ROUTER] planner_target_domain override={planner_domain}")
+        query_type = planner_domain
 
     activated = state.get("nodes_activated", [])
     activated.append("RouterNode")

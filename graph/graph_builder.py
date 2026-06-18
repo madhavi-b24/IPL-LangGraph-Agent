@@ -2,6 +2,7 @@ from langgraph.graph import StateGraph, END
 from graph.state import IPLAgentState
 from graph.nodes import (
     rewrite_query_node,
+    react_planner_node,
     router_node,
     batting_stats_node,
     bowling_stats_node,
@@ -71,6 +72,7 @@ def build_ipl_graph():
 
     # ── Register all nodes ────────────────────────────────────────────
     graph.add_node("rewrite",    rewrite_query_node)
+    graph.add_node("planner",    react_planner_node)
     graph.add_node("router",     router_node)
     graph.add_node("team",       team_profile_node)
     graph.add_node("batting",    batting_stats_node)
@@ -85,8 +87,9 @@ def build_ipl_graph():
     # ── Entry point ───────────────────────────────────────────────────
     graph.set_entry_point("rewrite")
 
-    # ── Rewrite → Router edge ─────────────────────────────────────────
-    graph.add_edge("rewrite", "router")
+    # ── Rewrite → Planner → Router edge ─────────────────────────────
+    graph.add_edge("rewrite", "planner")
+    graph.add_edge("planner", "router")
 
     # ── Conditional routing from RouterNode ───────────────────────────
     graph.add_conditional_edges(

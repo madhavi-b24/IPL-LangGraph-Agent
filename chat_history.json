@@ -98,5 +98,30 @@
     "query": "how many times have MI and CSK played each other",
     "answer": "According to the provided context, the number of times MI and CSK have played each other is:\n\n- 35 (from Chunk 4)\n- 33 (from Chunk 6)\n\nSince there is a conflict between the two values, the answer is:\n\nInformation not available in dataset.",
     "time_taken": 17.66
+  },
+  {
+    "query": "who leads chennai super kings",
+    "answer": "Since the context explicitly mentions the information about Chennai Super Kings, the answer is:\n\nRuturaj Gaikwad leads Chennai Super Kings.",
+    "time_taken": 18.48
+  },
+  {
+    "query": "drea11 team for csk vs rcb",
+    "answer": "Since the context explicitly mentions the information about Chennai Super Kings vs Royal Challengers Bangalore (RCB), the answer is:\n\nThe matchup between CSK and RCB has the following records:\n\n- Total Matches: 30\n- CSK Wins: 22\n- RCB Wins: 8\n- Tied/NR: 0\n- Last 5 (\u2192 winner): CSK,CSK,RCB,CSK,RCB\n- High Score: 226/6 (RCB)",
+    "time_taken": 17.56
+  },
+  {
+    "query": "best death bowler",
+    "answer": "Based on the provided context, the best death bowler can be identified as the bowler with the best economy rate in the death overs (overs 16-20). \n\nFrom the context, we can see that:\n\n- Jasprit Bumrah (MI) has an economy rate of 7.39 and relies on death bowling.\n- Trent Boult (RR) has an economy rate of 8.18, but his best figures are in swing bowling.\n- Mohammed Shami (GT) has an economy rate of 8.02, but his best figures are in fast bowling.\n- Rashid Khan (GT) has an economy rate of 6.68, but his best figures are in leg-spin.\n\nHowever, the best death bowler is not explicitly mentioned in the context. \n\nConsidering the information available, we can make a comparison of the economy rates of the bowlers mentioned:\n\n- Jasprit Bumrah (MI): 7.39\n- Mohammed Shami (GT): 8.02\n- Trent Boult (RR): 8.18\n\nBased on this comparison, Jasprit Bumrah (MI) has the best economy rate among the mentioned bowlers, making him a strong candidate for the best death bowler.\n\n**Best Death Bowler:**\n- Jasprit Bumrah (MI) with an economy rate of 7.39.",
+    "time_taken": 6.83
+  },
+  {
+    "query": "RCB vs CSK at Chinnaswamy",
+    "answer": "Based on the provided context, we can see that RCB relies heavily on Kohli and du Plessis for big scores and has a strategy to post 180+ totals and defend with pace. They have a home advantage at the high-scoring Chinnaswamy stadium.\n\nCSK, on the other hand, relies on spinners on slow Chennai pitch and Dhoni's finishing. They have a strategy to anchor the innings, use spinners in middle overs, and finish with big hitters.\n\nConsidering these team strategies, it can be inferred that RCB might have an advantage at Chinnaswamy, but CSK's spinners and Dhoni's finishing might make them a strong contender. However, without more information about the specific match conditions and player performances, it's difficult to make a definitive prediction.\n\n**Key factors to consider:**\n\n- RCB's home advantage at Chinnaswamy\n- CSK's spinners and Dhoni's finishing\n- Kohli and du Plessis's big scores for RCB\n- CSK's ability to anchor the innings and use spinners effectively\n\n**Prediction:** A closely contested match with both teams having a chance to win.",
+    "time_taken": 6.42
+  },
+  {
+    "query": "MI vs CSK head to head",
+    "answer": "Based on the provided context, here's the answer to the new question:\n\nMI vs CSK Head-to-Head:\n\n- Total Matches: 35\n- MI Wins: 20\n- CSK Wins: 14\n- Tied/NR: 1\n- Last 5 (\u2192 winner): MI, CSK, MI, CSK, MI\n- High Score: 235/1 (MI)",
+    "time_taken": 18.53
   }
 ]
