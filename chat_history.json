@@ -73,5 +73,10 @@
     "query": "who will win MI vs CSK",
     "answer": "Based on the provided context, we can analyze the head-to-head (H2H) record between MI and CSK.\n\nFrom Chunk 7: \nMI vs CSK \nTotal Matches: 35 \nTeam 1 (MI) Wins: 20 \nTeam 2 (CSK) Wins: 14 \nTied/NR: 1 \n\nFrom Chunk 8: \nMI vs CSK \nTotal Matches: 28 \nTeam 1 (MI) Wins: 16 \nTeam 2 (CSK) Wins: 12 \n\nSince the total matches are different in the two chunks (35 vs 28), we will consider the information from Chunk 7 as the validated data.\n\nTherefore, the answer is: \nMI is slightly favoured to win against CSK, given their overall H2H record (20-14).",
     "time_taken": 2.14
+  },
+  {
+    "query": "csk captain",
+    "answer": "Ruturaj Gaikwad is the captain of CSK.",
+    "time_taken": 30.43
   }
 ]

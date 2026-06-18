@@ -2,7 +2,7 @@ from typing import TypedDict, List
 from langchain_core.documents import Document
 
 
-class IPLAgentRequired(TypedDict):
+class IPLAgentState(TypedDict):
     # Input
     user_query: str
     rewritten_query:str
@@ -28,11 +28,9 @@ class IPLAgentRequired(TypedDict):
     confidence: float
     confidence_score: float
     confidence_level: str
+    # Verification metadata
+    verification_score: float
+    verification_passed: bool
+    verification_reason: str
     source_attribution: List[dict]
     nodes_activated: List[str]       # tracks which nodes ran (for UI display)
-
-
-class IPLAgentState(IPLAgentRequired, total=False):
-    hallucination_score: float
-    hallucination_flag: bool
-    hallucination_reason: str

@@ -15,7 +15,7 @@ from graph.nodes import (
 from graph.query_classifier import classify_query
 from graph.team_node import team_profile_node
 from graph.validation import validation_node
-from safety.hallucination_guard import hallucination_guard_node
+from verification.answer_verifier import answer_verifier_node
 
 
 def route_query(state: IPLAgentState) -> str:
@@ -84,6 +84,7 @@ def build_ipl_graph():
     graph.add_node("records",    records_node)
     graph.add_node("synthesis",  synthesis_node)
     graph.add_node("validation", validation_node)
+    graph.add_node("answer_verifier", answer_verifier_node)
 
     # ── Entry point ───────────────────────────────────────────────────
     graph.set_entry_point("rewrite")
@@ -122,10 +123,9 @@ def build_ipl_graph():
     graph.add_edge("team",    "validation")
     graph.add_edge("records", "validation")
 
-    # ── Synthesis → Validation → END ─────────────────────────────────
+    # ── Synthesis → Validation → AnswerVerifier → END ─────────────────
     graph.add_edge("validation", "synthesis")
-    graph.add_node("hallucination_guard", hallucination_guard_node)
-    graph.add_edge("synthesis", "hallucination_guard")
-    graph.add_edge("hallucination_guard", END)
+    graph.add_edge("synthesis", "answer_verifier")
+    graph.add_edge("answer_verifier", END)
 
     return graph.compile()
