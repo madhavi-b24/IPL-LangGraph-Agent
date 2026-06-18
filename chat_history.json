@@ -78,5 +78,25 @@
     "query": "Suggest a Dream11 XI for MI vs SRH at Wankhede tonight.",
     "answer": "To suggest a Dream11 XI for MI vs SRH at Wankhede tonight, we need to consider the recent form of players and the head-to-head records between the two teams.\n\n**Recent Form:**\n\n- Travis Head (SRH) - Excellent form with an average of 59.0 in the last 5 matches.\n- Jasprit Bumrah (MI) - Excellent form with 2.4 wkts/gam.\n- Rohit Sharma (MI) - Average form with an average of 32.6 in the last 5 matches.\n- Jos Buttler (RR) - Mixed form with an average of 46.6 in the last 5 matches.\n\n**Head-to-Head Records:**\n\n- MI vs SRH - Total Matches: 28, MI wins: 16, SRH wins: 12, Tied/NR: 0.\n\n**Dream11 XI Suggestion:**\n\nBased on the recent form and head-to-head records, here's a suggested Dream11 XI for MI vs SRH at Wankhede tonight:\n\n1. Captain - Travis Head (SRH)\n2. Vice-Captain - Jasprit Bumrah (MI)\n3. Batters - Rohit Sharma (MI), Jos Buttler (RR), Abhishek Sharma (SRH)\n4. All-Rounders - Hardik Pandya (MI), Suryakumar Yadav (MI)\n5. Bowlers - Jasprit Bumrah (MI), Rashid Khan (GT), TBA (SRH)\n\nNote: The fifth bowler can be chosen based on the current team selection and the pitch conditions at Wankhede.",
     "time_taken": 5.68
+  },
+  {
+    "query": "highest strike rate opener",
+    "answer": "To find the highest strike rate opener, we need to filter by Role='Opener' and then sort by SR.\n\nFrom Chunk 1:\n- MS Dhoni (CSK) - SR: 135.9\n- Ishan Kishan (MI) - SR: 136.2\n- Quinton de Kock (LSG) - SR: 138.9\n- Heinrich Klaasen (SRH) - SR: 162.8\n\nFrom Chunk 2:\n- Sanju Samson (RR) - SR: 140.5\n- KL Rahul (LSG) - SR: 134.3\n- Shreyas Iyer (KKR) - SR: 127.8\n- Jos Buttler (RR) - SR: 149.2\n- Faf du Plessis (RCB) - SR: 134.2\n- Abhishek Sharma (SRH) - SR: 188.3\n- Travis Head (SRH) - SR: 191.6\n\nFrom Chunk 3:\n- Ruturaj Gaikwad (CSK) - SR: 136.8\n- Shubman Gill (GT) - SR: 148.7\n\n**Highest Strike Rate Opener:**\n\n| Player | Team | SR |\n| --- | --- | --- |\n| Heinrich Klaasen | SRH | 162.8 |\n| Abhishek Sharma | SRH | 188.3 |\n| Travis Head | SRH | 191.6 |\n| Shubman Gill | GT | 148.7 |\n| Jos Buttler | RR | 149.2 |\n\nThe highest strike rate opener is Heinrich Klaasen (SRH) with an SR of 162.8.",
+    "time_taken": 20.62
+  },
+  {
+    "query": "bowlers with economy below 7",
+    "answer": "Based on the provided context, the bowlers with economy below 7 are:\n\n| Player | Team | Econ |\n| --- | --- | --- |\n| Sunil Narine | KKR | 6.69 |\n| Harbhajan Singh | MI | 6.97 |\n| Rashid Khan | GT | 6.68 |",
+    "time_taken": 14.28
+  },
+  {
+    "query": "MI vs CSK head to head",
+    "answer": "Based on the provided context, the MI vs CSK head-to-head record is as follows:\n\n| Matchup | Total Matches | Team 1 Wins | Team 2 Wins | Tied/NR | Last 5 (\u2192 winner) | High Score | Key Factor |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| MI vs CSK | 35 | 20 | 14 | 1 | MI,CSK,MI,CSK,MI | 235/1 (MI) | Bumrah vs Dhoni |",
+    "time_taken": 17.41
+  },
+  {
+    "query": "how many times have MI and CSK played each other",
+    "answer": "According to the provided context, the number of times MI and CSK have played each other is:\n\n- 35 (from Chunk 4)\n- 33 (from Chunk 6)\n\nSince there is a conflict between the two values, the answer is:\n\nInformation not available in dataset.",
+    "time_taken": 17.66
   }
 ]

@@ -261,7 +261,9 @@ def retrieve(query: str, section: str, k: int = 6, entities: Optional[dict] = No
     vs = get_vectorstore()
     try:
         docs = hybrid_search(expanded_query, section, k)
-        return docs
+        # Apply cross-encoder re-ranking to improve relevance
+        reranked_docs = cross_encoder_rerank(expanded_query, docs)
+        return reranked_docs
     except Exception as exc:
         print("[HYBRID SEARCH] failed, falling back to original vector retrieval. Error:", exc)
 
@@ -305,7 +307,9 @@ def retrieve(query: str, section: str, k: int = 6, entities: Optional[dict] = No
         )
 
     print("==============================\n")
-    return docs
+    # Apply cross-encoder re-ranking to improve relevance (fallback path)
+    reranked_docs = cross_encoder_rerank(expanded_query, docs)
+    return reranked_docs
 
 
 def hybrid_search(query: str, section: str, k: int = 6):
@@ -417,3 +421,64 @@ def hybrid_search(query: str, section: str, k: int = 6):
     top_docs = [doc for doc, _, _ in merged_list[:k]]
     print("[HYBRID SEARCH] returning", len(top_docs), "docs\n")
     return top_docs
+
+
+def cross_encoder_rerank(query: str, documents: list) -> list:
+    """Re-rank documents using cross-encoder model for improved relevance.
+    
+    Uses cross-encoder/ms-marco-MiniLM-L-6-v2 from sentence-transformers to compute
+    relevance scores for each (query, document) pair and re-order results.
+    
+    Args:
+        query: The original user query
+        documents: List of Document objects from hybrid search
+        
+    Returns:
+        Reranked list of Document objects, sorted by relevance score (highest first).
+        Falls back to original documents if model loading fails.
+    """
+    if not documents:
+        return documents
+    
+    try:
+        from sentence_transformers import CrossEncoder
+        
+        print("\n[RERANKING] Loading cross-encoder model: cross-encoder/ms-marco-MiniLM-L-6-v2")
+        model = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
+        
+        # Create (query, document_text) pairs for relevance scoring
+        pairs = [[query, doc.page_content] for doc in documents]
+        
+        print(f"[RERANKING] Original Query: {query}")
+        print(f"[RERANKING] Documents Before: {len(documents)}")
+        
+        # Compute relevance scores using cross-encoder
+        scores = model.predict(pairs)
+        
+        # Create list of (document, score) tuples
+        doc_score_pairs = list(zip(documents, scores))
+        
+        # Sort by score in descending order (highest relevance first)
+        doc_score_pairs.sort(key=lambda x: x[1], reverse=True)
+        
+        # Extract reranked documents
+        reranked_docs = [doc for doc, score in doc_score_pairs]
+        
+        print(f"[RERANKING] Documents After: {len(reranked_docs)}")
+        
+        # Log top scores for debugging
+        top_scores = scores[:min(3, len(scores))]
+        print(f"[RERANKING] Top Scores: {top_scores}")
+        
+        # Check if reranker confidence is very low (all scores < 0)
+        # If so, fallback to original hybrid search ranking
+        max_score = max(scores) if scores else -float('inf')
+        if max_score < 0:
+            print("[RERANKING] Low confidence (max score < 0), falling back to hybrid search ranking")
+            return documents
+        
+        return reranked_docs
+        
+    except Exception as e:
+        print(f"[RERANKING] Model loading or inference failed: {e}. Falling back to original documents.")
+        return documents

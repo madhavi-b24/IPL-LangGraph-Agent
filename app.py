@@ -180,9 +180,9 @@ with st.sidebar:
 
     if unique_history:
         st.markdown("#### 🕘 History")
-        for past_q in unique_history[:25]:   # cap at 25 sidebar items
+        for idx, past_q in enumerate(unique_history[:25]):   # cap at 25 sidebar items
             label = past_q[:38] + "..." if len(past_q) > 38 else past_q
-            if st.button(label, key=f"hist_{query_hash(past_q)}", use_container_width=True):
+            if st.button(label, key=f"hist_{idx}_{query_hash(past_q)}", use_container_width=True):
                 st.session_state["selected_query"] = past_q
 
         if st.button("🗑️ Clear history", use_container_width=True):
@@ -205,8 +205,8 @@ with st.sidebar:
         "CSK is playing RCB at Chinnaswamy. Who will win?",
         "What bowling strategy should SRH use at MA Chidambaram against CSK?",
     ]
-    for sq in sample_queries:
-        if st.button(sq, key=f"sug_{query_hash(sq)}", use_container_width=True):
+    for idx, sq in enumerate(sample_queries):
+        if st.button(sq, key=f"sug_{idx}_{query_hash(sq)}", use_container_width=True):
             st.session_state["selected_query"] = sq
 
     st.divider()
