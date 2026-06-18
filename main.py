@@ -22,6 +22,8 @@ def empty_state(query: str) -> dict:
         "rewritten_query": "",
         "query_type": "",
         "entities": [],
+        "selected_tool": None,
+        "tool_confidence": 0.0,
         "batting_context": [],
         "bowling_context": [],
         "h2h_context": [],

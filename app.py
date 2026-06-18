@@ -122,6 +122,8 @@ def empty_state(query: str) -> dict:
         "rewritten_query": "",
         "query_type": "",
         "entities": [],
+        "selected_tool": None,
+        "tool_confidence": 0.0,
         "batting_context": [],
         "bowling_context": [],
         "h2h_context": [],
@@ -205,8 +207,8 @@ with st.sidebar:
         "CSK is playing RCB at Chinnaswamy. Who will win?",
         "What bowling strategy should SRH use at MA Chidambaram against CSK?",
     ]
-    for idx, sq in enumerate(sample_queries):
-        if st.button(sq, key=f"sug_{idx}_{query_hash(sq)}", use_container_width=True):
+    for sq in sample_queries:
+        if st.button(sq, key=f"sug_{query_hash(sq)}", use_container_width=True):
             st.session_state["selected_query"] = sq
 
     st.divider()

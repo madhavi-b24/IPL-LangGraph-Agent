@@ -8,6 +8,8 @@ class IPLAgentState(TypedDict):
     rewritten_query:str
     query_type: str                  # 'batting'|'bowling'|'h2h'|'venue'|'form'|'records'|'prediction'|'dream11'
     entities: List[str]              # extracted player/team names
+    selected_tool: str
+    tool_confidence: float
 
     # Retrieved context per node
     batting_context: List[Document]
