@@ -15,6 +15,7 @@ from graph.nodes import (
 from graph.query_classifier import classify_query
 from graph.team_node import team_profile_node
 from graph.validation import validation_node
+from safety.hallucination_guard import hallucination_guard_node
 
 
 def route_query(state: IPLAgentState) -> str:
@@ -123,6 +124,8 @@ def build_ipl_graph():
 
     # ── Synthesis → Validation → END ─────────────────────────────────
     graph.add_edge("validation", "synthesis")
-    graph.add_edge("synthesis", END)
+    graph.add_node("hallucination_guard", hallucination_guard_node)
+    graph.add_edge("synthesis", "hallucination_guard")
+    graph.add_edge("hallucination_guard", END)
 
     return graph.compile()

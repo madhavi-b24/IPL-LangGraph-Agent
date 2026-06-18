@@ -43,5 +43,35 @@
     "query": "virat kholi strike rate",
     "answer": "Virat Kohli's strike rate is 130.0.",
     "time_taken": 6.87
+  },
+  {
+    "query": "who is the captain of csk",
+    "answer": "The captain of CSK is Ruturaj Gaikwad.",
+    "time_taken": 19.32
+  },
+  {
+    "query": "MI vs CSK head to head",
+    "answer": "MI vs CSK head-to-head:\n\n| Matchup | Total Matches | Team 1 Wins | Team 2 Wins | Tied/NR | Last 5 (\u2192 winner) | High Score | Key Factor |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| MI vs CSK | 35 | 20 | 14 | 1 | MI,CSK,MI,CSK,MI | 235/1 (MI) | Bumrah vs Dhoni |",
+    "time_taken": 1.82
+  },
+  {
+    "query": "tell me about lionel messi's ipl  carrer",
+    "answer": "Information not available in dataset.",
+    "time_taken": 2.01
+  },
+  {
+    "query": "what is the ipl record at old trafford stadium",
+    "answer": "Information not available in dataset.",
+    "time_taken": 1.88
+  },
+  {
+    "query": "who will wn mi or csk",
+    "answer": "Information not available in dataset.",
+    "time_taken": 1.85
+  },
+  {
+    "query": "who will win MI vs CSK",
+    "answer": "Based on the provided context, we can analyze the head-to-head (H2H) record between MI and CSK.\n\nFrom Chunk 7: \nMI vs CSK \nTotal Matches: 35 \nTeam 1 (MI) Wins: 20 \nTeam 2 (CSK) Wins: 14 \nTied/NR: 1 \n\nFrom Chunk 8: \nMI vs CSK \nTotal Matches: 28 \nTeam 1 (MI) Wins: 16 \nTeam 2 (CSK) Wins: 12 \n\nSince the total matches are different in the two chunks (35 vs 28), we will consider the information from Chunk 7 as the validated data.\n\nTherefore, the answer is: \nMI is slightly favoured to win against CSK, given their overall H2H record (20-14).",
+    "time_taken": 2.14
   }
 ]

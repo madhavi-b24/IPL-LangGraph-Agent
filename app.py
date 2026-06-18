@@ -138,6 +138,9 @@ def empty_state(query: str) -> dict:
         "confidence_level": "MEDIUM",
         "source_attribution": [],
         "nodes_activated": [],
+        "hallucination_score": 0.0,
+        "hallucination_flag": False,
+        "hallucination_reason": "",
     }
 
 def run_query(query: str):
