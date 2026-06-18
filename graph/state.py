@@ -1,4 +1,4 @@
-from typing import TypedDict, List
+from typing import TypedDict, List,Dict,Optional
 from langchain_core.documents import Document
 
 
@@ -33,5 +33,9 @@ class IPLAgentState(TypedDict):
     verification_score: float
     verification_passed: bool
     verification_reason: str
+    # Prediction calibration
+    prediction_confidence: Optional[float]
+    evidence_strength: str
+    supporting_sources: int
     source_attribution: List[dict]
     nodes_activated: List[str]       # tracks which nodes ran (for UI display)

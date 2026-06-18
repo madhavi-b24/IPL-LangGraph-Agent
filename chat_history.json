@@ -93,5 +93,35 @@
     "query": "Chinnaswamy pitch report",
     "answer": "Chinnaswamy pitch report:\n\n- **Venue:** M Chinnaswamy Stadium, Bengaluru\n- **Pitch Type:** Flat\n- **Boundary:** Short boundary\n- **Dew Factor:** High evening dew\n- **Batting/Bowling:** Very batting-friendly\n- **Best Strategy:** Bat first, score 180+; no safe total.",
     "time_taken": 45.97
+  },
+  {
+    "query": "who will win MI vs CSK",
+    "answer": "To answer the query, we need to retrieve the Head-to-Head (H2H) record of MI vs CSK and their recent form.\n\nFrom Chunk 7: \nMatchup: MI vs CSK\nTotal Matches: 35\nTeam 1 (MI) Wins: 20\nTeam 2 (CSK) Wins: 14\nTied/NR: 1\nLast 5 (\u2192 winner): MI,CSK,MI,CSK,MI\nHigh Score: 235/1 (MI)\nKey Factor: Bumrah vs Dhoni\n\nFrom Chunk 8: \nMatchup: MI vs CSK\nTotal Matches: 35\nTeam 1 (MI) Wins: 20\nTeam 2 (CSK) Wins: 14\nTied/NR: 1\nLast 5 (\u2192 winner): MI,CSK,MI,CSK,MI\nHigh Score: 235/1 (MI)\nKey Factor: Bumrah vs Dhoni\n\nSince the H2H records are the same in both chunks, we can conclude that MI leads CSK 20-14 overall and has won the last 3 matches between them.\n\nHowever, to make a prediction, we also need to consider the recent form of both teams and the venue. Unfortunately, the recent form of both teams is not explicitly mentioned in the provided context.",
+    "time_taken": 53.78
+  },
+  {
+    "query": "who is csk captain",
+    "answer": "Ruturaj Gaikwad is the captain of CSK.",
+    "time_taken": 7.19
+  },
+  {
+    "query": "virat kholi strike rate",
+    "answer": "From Chunk 1, the batting statistics for Virat Kohli are:\n\n- Role: Top-order bat\n- Strike Rate (SR): 130.0\n\nSo, Virat Kohli's strike rate is 130.0.",
+    "time_taken": 37.64
+  },
+  {
+    "query": "MI vs CSK head to head",
+    "answer": "From Chunk 4, the head-to-head (H2H) record between MI (Mumbai Indians) and CSK (Chennai Super Kings) is:\n\n- Total Matches: 35\n- MI Wins: 20\n- CSK Wins: 14\n- Tied/NR: 1\n- Last 5 (\u2192 winner): MI,CSK,MI,CSK,MI\n- High Score: 235/1 (MI)\n- Key Factor: Bumrah vs Dhoni",
+    "time_taken": 63.35
+  },
+  {
+    "query": "M Chinnaswamy stadium pitch report",
+    "answer": "From Chunk 5: Section 5: Venue & Pitch Reports, the pitch report for M Chinnaswamy Stadium is:\n\n- Venue: M Chinnaswamy Stadium\n- City: Bengaluru\n- Capacity: 35,000\n- Pitch Type: Flat, short boundary\n- Avg 1st Innings: 185\n- Batting/Bowling: Very bat-friendly\n- Dew Factor: Moderate\n- Best Strategy: Bat first, score 180+. No safe total.",
+    "time_taken": 4.97
+  },
+  {
+    "query": "Best Dream11 team for MI vs CSK",
+    "answer": "To determine the best Dream11 team for MI vs CSK, we need to consider the recent form, pitch conditions, and player statistics.\n\n**Recent Form:**\n\nFrom Chunk 7, we can see the recent form of players from MI and CSK:\n\n- MI: Rohit Sharma (Average), Jasprit Bumrah (Excellent)\n- CSK: Ruturaj Gaikwad (Information not available in dataset), MS Dhoni (Information not available in dataset)\n\n**Pitch Conditions:**\n\nFrom Chunk 5, we know that MA Chidambaram Stadium (Chennai) is the most spin-friendly pitch in the IPL, but since the match is at M Chinnaswamy Stadium (Bengaluru), we can refer to Chunk 6 for the pitch report:\n\n- Venue: M Chinnaswamy Stadium\n- Pitch Type: Flat, short boundary\n- Avg 1st Innings: 185\n- Best Strategy: Bat first, score 180+.\n\n**Player Statistics:**\n\nFrom Chunk 1, we can see the player statistics:\n\n- MI: Rohit Sharma (243 matches, 6211 runs), Jasprit Bumrah (Information not available in dataset)\n- CSK: Ruturaj Gaikwad (87 matches, 2835 runs), MS Dhoni (250 matches, 5243 runs)\n\n**Dream11 Team Suggestion:**\n\nBased on the recent form, pitch conditions, and player statistics, here's a suggested Dream11 team for MI vs CSK:\n\n- Batsmen: Rohit Sharma (MI), Ruturaj Gaikwad (CSK), Sanju Samson (RR)\n- All-rounders: Hardik Pandya (MI), Faf du Plessis (RCB)\n- Bowlers: Jasprit Bumrah (MI), Yuzvendra Chahal (RCB), Rashid Khan (GT)\n\nNote that this is just a suggested team and actual team selection may vary based on various factors.",
+    "time_taken": 32.86
   }
 ]

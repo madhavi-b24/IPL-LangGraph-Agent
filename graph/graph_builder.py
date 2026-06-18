@@ -16,6 +16,7 @@ from classification import classify_query_node
 from graph.team_node import team_profile_node
 from graph.validation import validation_node
 from verification.answer_verifier import answer_verifier_node
+from evaluation.prediction_confidence import prediction_confidence_node
 
 
 def route_query(state: IPLAgentState) -> str:
@@ -126,6 +127,8 @@ def build_ipl_graph():
     # ── Synthesis → Validation → AnswerVerifier → END ─────────────────
     graph.add_edge("validation", "synthesis")
     graph.add_edge("synthesis", "answer_verifier")
-    graph.add_edge("answer_verifier", END)
+    graph.add_edge("answer_verifier", "prediction_confidence")
+    graph.add_node("prediction_confidence", prediction_confidence_node)
+    graph.add_edge("prediction_confidence", END)
 
     return graph.compile()
