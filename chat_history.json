@@ -78,5 +78,20 @@
     "query": "csk captain",
     "answer": "Ruturaj Gaikwad is the captain of CSK.",
     "time_taken": 30.43
+  },
+  {
+    "query": "csk captain",
+    "answer": "Ruturaj Gaikwad is the captain of CSK.",
+    "time_taken": 34.42
+  },
+  {
+    "query": "virat kholi strike rate",
+    "answer": "Virat Kohli's strike rate is 130.0.",
+    "time_taken": 7.47
+  },
+  {
+    "query": "Chinnaswamy pitch report",
+    "answer": "Chinnaswamy pitch report:\n\n- **Venue:** M Chinnaswamy Stadium, Bengaluru\n- **Pitch Type:** Flat\n- **Boundary:** Short boundary\n- **Dew Factor:** High evening dew\n- **Batting/Bowling:** Very batting-friendly\n- **Best Strategy:** Bat first, score 180+; no safe total.",
+    "time_taken": 45.97
   }
 ]

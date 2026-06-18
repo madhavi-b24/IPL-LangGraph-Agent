@@ -10,6 +10,7 @@ class IPLAgentState(TypedDict):
     entities: List[str]              # extracted player/team names
     selected_tool: str
     tool_confidence: float
+    query_confidence: float
 
     # Retrieved context per node
     batting_context: List[Document]

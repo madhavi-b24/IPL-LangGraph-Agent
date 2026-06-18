@@ -12,7 +12,7 @@ from graph.nodes import (
     records_node,
     synthesis_node,
 )
-from graph.query_classifier import classify_query
+from classification import classify_query_node
 from graph.team_node import team_profile_node
 from graph.validation import validation_node
 from verification.answer_verifier import answer_verifier_node
@@ -87,12 +87,12 @@ def build_ipl_graph():
     graph.add_node("answer_verifier", answer_verifier_node)
 
     # ── Entry point ───────────────────────────────────────────────────
-    graph.set_entry_point("rewrite")
+    graph.set_entry_point("query_classifier")
 
-    # ── Rewrite → QueryClassifier → Router edge ─────────────────────────
-    graph.add_edge("rewrite", "query_classifier")
-    graph.add_node("query_classifier", classify_query)
-    graph.add_edge("query_classifier", "router")
+    # ── QueryClassifier → Rewrite → Router edge ───────────────────────
+    graph.add_node("query_classifier", classify_query_node)
+    graph.add_edge("query_classifier", "rewrite")
+    graph.add_edge("rewrite", "router")
     graph.add_node("tool_router", tool_router_node)
     graph.add_edge("router", "tool_router")
 
